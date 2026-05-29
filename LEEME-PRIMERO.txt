@@ -1,0 +1,24 @@
+═══════════════════════════════════════════════════════
+  PROSEPORT — Puerto fijo: 3001
+═══════════════════════════════════════════════════════
+
+Este proyecto SIEMPRE usa el puerto 3001.
+
+Para trabajar (desarrollo con cambios en vivo):
+
+  cd /Users/osx/Desktop/proseport-landing
+  npm run dev
+
+Para ver la versión compilada:
+
+  npm run restart
+
+Abrí siempre:
+
+  http://127.0.0.1:3001
+
+Recarga forzada: Cmd + Shift + R
+
+No uses localhost:3000 ni :3002 — solo :3001
+
+═══════════════════════════════════════════════════════
