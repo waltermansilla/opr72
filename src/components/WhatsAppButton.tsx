@@ -6,7 +6,11 @@ export default function WhatsAppButton() {
       href={`${contact.whatsapp}?text=${encodeURIComponent("Hola! Estaba viendo la página Proseport, y quería hacer una consulta")}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="group fixed right-5 bottom-5 z-50 flex items-center"
+      className="group fixed z-50 flex items-center"
+      style={{
+        right: "max(1rem, env(safe-area-inset-right, 0px))",
+        bottom: "max(1rem, env(safe-area-inset-bottom, 0px))",
+      }}
       aria-label="Contactar por WhatsApp"
     >
       <span className="pointer-events-none absolute right-16 scale-90 rounded-lg bg-[#25D366] px-4 py-2 text-sm font-medium whitespace-nowrap text-white opacity-0 shadow-lg transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">

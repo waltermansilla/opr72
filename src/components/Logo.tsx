@@ -14,17 +14,19 @@ export default function Logo({
   className = "",
 }: LogoProps) {
   return (
-    <span className={`inline-flex items-center gap-3 ${className}`}>
+    <span
+      className={`inline-flex min-w-0 max-w-full items-center gap-2 sm:gap-3 ${className}`}
+    >
       <Image
         src={LOGO_SRC}
         alt="PROSEPORT — Organización de Protección Reconocida"
         width={size}
         height={size}
-        className="rounded-full object-cover shadow-sm"
+        className="shrink-0 rounded-full object-cover shadow-sm"
         priority
       />
       {showText && (
-        <span className="text-lg font-bold tracking-wide sm:text-xl">
+        <span className="truncate text-base font-bold tracking-wide sm:text-lg md:text-xl">
           PROSEPORT
         </span>
       )}

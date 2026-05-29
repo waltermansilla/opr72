@@ -1,27 +1,25 @@
 import StockImage from "./StockImage";
 import FadeIn from "./FadeIn";
-import Logo from "./Logo";
+import SectionHeader from "./SectionHeader";
 import { aboutText } from "@/data/content";
 import { stockImages } from "@/data/images";
 
 export default function About() {
   return (
-    <section id="quienes-somos" className="bg-surface py-20 sm:py-24">
+    <section id="quienes-somos" className="bg-white py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn>
-          <div className="mb-8 flex flex-col items-center">
-            <Logo size={120} />
-          </div>
-          <h2 className="mb-4 text-center text-3xl font-bold text-primary sm:text-4xl">
-            Quiénes Somos
-          </h2>
-          <div className="mx-auto mb-12 h-1 w-20 bg-primary" />
+          <SectionHeader
+            label="Institucional"
+            title="Quiénes Somos"
+            description="Profesionales del ámbito marítimo y portuario al servicio de la seguridad y la excelencia operativa."
+          />
         </FadeIn>
 
-        <div className="grid items-center gap-12 lg:grid-cols-2">
+        <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-14">
           <FadeIn delay={100}>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-xl shadow-lg">
+            <div className="grid gap-4">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-md ring-1 ring-slate-200/80">
                 <StockImage
                   src={stockImages.about.main}
                   alt="Operaciones portuarias"
@@ -30,41 +28,38 @@ export default function About() {
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>
-              <div className="relative hidden aspect-[16/9] overflow-hidden rounded-xl shadow-lg sm:block lg:aspect-[21/9]">
+              <div className="relative hidden aspect-[21/9] overflow-hidden rounded-2xl shadow-md ring-1 ring-slate-200/80 sm:block">
                 <StockImage
                   src={stockImages.about.secondary}
-                  alt="Vista aérea del puerto"
+                  alt="Vista del puerto"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 1024px) 50vw, 25vw"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>
             </div>
           </FadeIn>
 
           <FadeIn delay={200}>
-            <div className="space-y-4 leading-relaxed text-gray-700">
+            <div className="space-y-4 text-base leading-relaxed text-slate-700">
               {aboutText.split("\n\n").map((paragraph) => (
                 <p key={paragraph.slice(0, 40)}>{paragraph}</p>
               ))}
             </div>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <div className="rounded-lg border border-primary/20 bg-white px-5 py-4 shadow-sm">
-                <p className="text-2xl font-bold text-primary">OPR</p>
-                <p className="text-sm text-gray-600">
-                  Habilitada por Prefectura Naval
-                </p>
-              </div>
-              <div className="rounded-lg border border-primary/20 bg-white px-5 py-4 shadow-sm">
-                <p className="text-2xl font-bold text-primary">5</p>
-                <p className="text-sm text-gray-600">
-                  Departamentos especializados
-                </p>
-              </div>
-              <div className="rounded-lg border border-primary/20 bg-white px-5 py-4 shadow-sm">
-                <p className="text-2xl font-bold text-primary">10+</p>
-                <p className="text-sm text-gray-600">Clientes de referencia</p>
-              </div>
+            <div className="mt-8 grid grid-cols-1 gap-3 min-[420px]:grid-cols-3">
+              {[
+                { value: "OPR", label: "Habilitada por Prefectura Naval" },
+                { value: "5", label: "Departamentos especializados" },
+                { value: "10+", label: "Clientes de referencia" },
+              ].map((stat) => (
+                <div
+                  key={stat.value}
+                  className="card px-4 py-4 text-center sm:text-left"
+                >
+                  <p className="text-2xl font-bold text-primary">{stat.value}</p>
+                  <p className="mt-1 text-sm text-slate-600">{stat.label}</p>
+                </div>
+              ))}
             </div>
           </FadeIn>
         </div>

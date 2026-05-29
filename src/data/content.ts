@@ -26,6 +26,9 @@ export const navLinks = [
   { href: "#contacto", label: "Contacto" },
 ];
 
+/** Links del menú lateral (sin Contacto — va en el botón del header). */
+export const menuLinks = navLinks.filter((l) => l.href !== "#contacto");
+
 export const aboutText = `Somos un grupo de profesionales del ámbito marítimo y portuario con diferentes formaciones, ellas comprenden formación dentro de la Autoridad Marítima Argentina y de la Marina Mercante, siendo nuestra visión muy amplia y siendo su aliado más eficaz y ayudando a las organizaciones y el personal de dirección en el mejoramiento de la gestión y las prácticas empresariales, como así también en el desempeño individual y colectivo.
 
 Teniendo la satisfacción de presentarle una amplia y diversa gama de servicios, que estamos en condiciones de brindarles a través de los distintos departamentos que integran la estructura de nuestra organización.`;
@@ -231,9 +234,12 @@ export const contact = {
   phoneHref: "tel:+5491164585350",
   address: 'Av. Córdoba 391 12º "A"',
   city: "Ciudad Autónoma de Buenos Aires",
-  website: "https://www.opr72.com",
-  websiteLabel: "www.opr72.com",
   mapEmbed:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.2287681416233!2d-58.375225924524926!3d-34.59837625721571!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccacb396bfaad%3A0xc29d175562c1ec09!2sAv.%20C%C3%B3rdoba%20391%2C%20C1054%20AAC%2C%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1725551399974!5m2!1ses!2sar",
+  mapsDirectionsUrl:
+    "https://www.google.com/maps/dir/?api=1&destination=Av.+C%C3%B3rdoba+391,+C1054AAC,+Ciudad+Aut%C3%B3noma+de+Buenos+Aires,+Argentina",
   whatsapp: "https://wa.me/5491164585350",
+  whatsappMessage:
+    "Hola, estaba viendo la web de PROSEPORT y quería hacer una consulta.",
+  mailtoSubject: "Consulta PROSEPORT",
 };

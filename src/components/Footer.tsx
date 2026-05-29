@@ -5,25 +5,26 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-primary-dark py-10 text-white/80">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="flex flex-col items-center gap-6 text-center md:flex-row md:justify-between md:text-left">
+    <footer className="border-t border-slate-800 bg-slate-900 py-12 text-slate-300">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col items-center gap-8 text-center md:flex-row md:items-start md:justify-between md:text-left">
           <div>
-            <div className="mb-3 flex justify-center md:justify-start">
-              <Logo size={56} />
+            <div className="mb-4 flex justify-center md:justify-start">
+              <Logo size={52} className="[&_img]:ring-2 [&_img]:ring-white/20" />
             </div>
-            <p className="text-sm">
+            <p className="max-w-xs text-sm leading-relaxed text-slate-400">
               Organización de Protección Reconocida — Buenos Aires, Argentina
             </p>
           </div>
-          <div className="text-sm">
-            <p>{contact.address}</p>
+          <div className="text-sm leading-relaxed">
+            <p className="font-medium text-white">{contact.address}</p>
             <p>{contact.city}</p>
-            <p className="mt-2">
+            <p className="mt-3">
               <a href={contact.phoneHref} className="hover:text-white">
                 {contact.phone}
               </a>
-              {" · "}
+            </p>
+            <p className="mt-1">
               <a
                 href={`mailto:${contact.email}`}
                 className="hover:text-white"
@@ -31,19 +32,9 @@ export default function Footer() {
                 {contact.email}
               </a>
             </p>
-            <p className="mt-1">
-              <a
-                href={contact.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white"
-              >
-                {contact.websiteLabel}
-              </a>
-            </p>
           </div>
         </div>
-        <p className="mt-8 text-center text-xs text-white/60">
+        <p className="mt-10 border-t border-slate-800 pt-6 text-center text-xs text-slate-500">
           © {year} PROSEPORT. Todos los derechos reservados.
         </p>
       </div>
