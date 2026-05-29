@@ -22,7 +22,7 @@ Abrí **http://127.0.0.1:3001** (puerto fijo).
 Si creaste el repo vacío en GitHub:
 
 ```bash
-git remote add origin https://github.com/TU_USUARIO/Proseport.git
+git remote add origin https://github.com/waltermansilla/Proseport.git
 git push -u origin main
 ```
 
