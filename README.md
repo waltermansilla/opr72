@@ -17,12 +17,12 @@ Abrí **http://127.0.0.1:3001** (puerto fijo).
 - **Prueba:** `public/images/stock/` (Unsplash). Ver `public/images/stock/README.md`.
 - **Producción:** reemplazá cada `.jpg` por la foto real con el mismo nombre.
 
-## Git (repositorio Proseport)
+## Git
 
-Si creaste el repo vacío en GitHub:
+Repositorio: [github.com/waltermansilla/proseport](https://github.com/waltermansilla/proseport)
 
 ```bash
-git remote add origin https://github.com/waltermansilla/Proseport.git
+git remote add origin https://github.com/waltermansilla/proseport.git
 git push -u origin main
 ```
 

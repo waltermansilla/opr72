@@ -6,7 +6,7 @@ Este proyecto SIEMPRE usa el puerto 3001.
 
 Para trabajar (desarrollo con cambios en vivo):
 
-  cd /Users/osx/Desktop/proseport-landing
+  cd /Users/osx/Desktop/proseport
   npm run dev
 
 Para ver la versión compilada:

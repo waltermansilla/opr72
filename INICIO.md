@@ -5,7 +5,7 @@
 ## Desarrollo (con cambios en vivo)
 
 ```bash
-cd /Users/osx/Desktop/proseport-landing
+cd /Users/osx/Desktop/proseport
 npm run dev
 ```
 
