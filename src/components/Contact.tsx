@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import FadeIn from "./FadeIn";
 import SectionHeader from "./SectionHeader";
-import { contact } from "@/data/content";
+import { getRequestSiteContent } from "@/lib/site-request";
 
 const btnIcon =
   "inline-flex h-10 w-10 shrink-0 touch-manipulation items-center justify-center rounded-lg transition-colors";
@@ -55,18 +55,20 @@ function ContactCard({
   );
 }
 
-export default function Contact() {
+export default async function Contact() {
+  const { contact, contactContent } = await getRequestSiteContent();
+  const { encabezado, tarjetas } = contactContent;
   const mailto = `mailto:${contact.email}?subject=${encodeURIComponent(contact.mailtoSubject)}`;
   const whatsappHref = `${contact.whatsapp}?text=${encodeURIComponent(contact.whatsappMessage)}`;
 
   return (
-    <section id="contacto" className="bg-slate-50 py-20 sm:py-24">
+    <section id={contactContent.id} className="bg-slate-50 py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <SectionHeader
-            label="Estamos cerca"
-            title="Contacto"
-            description="Escribinos, llamanos o visitanos en nuestra oficina en CABA."
+            label={encabezado.etiqueta}
+            title={encabezado.titulo}
+            description={encabezado.descripcion}
           />
         </FadeIn>
 
@@ -79,7 +81,7 @@ export default function Contact() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Ubicación de PROSEPORT en Google Maps"
+                title={contact.mapTitle}
               />
             </div>
           </div>
@@ -88,7 +90,7 @@ export default function Contact() {
         <div className="grid gap-4 lg:grid-cols-3">
           <FadeIn delay={120}>
             <ContactCard
-              title="Dirección"
+              title={tarjetas.direccion}
               icon={
                 <svg
                   className="h-5 w-5"
@@ -118,7 +120,7 @@ export default function Contact() {
                   rel="noopener noreferrer"
                   className={`${btnText} bg-primary text-white hover:bg-primary-dark`}
                 >
-                  Cómo llegar
+                  {tarjetas.botonComoLlegar}
                   <EnterArrowIcon />
                 </a>
               }
@@ -151,7 +153,7 @@ export default function Contact() {
                 <>
                   <a
                     href={contact.phoneHref}
-                    aria-label="Llamar"
+                    aria-label={tarjetas.botonLlamar}
                     className={`${btnIcon} bg-primary text-white hover:bg-primary-dark`}
                   >
                     <svg
@@ -173,8 +175,8 @@ export default function Contact() {
                     href={whatsappHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="WhatsApp"
-                    className={`${btnIcon} bg-[#25D366] text-white hover:bg-[#20bd5a]`}
+                    aria-label={tarjetas.botonWhatsapp}
+                    className={`${btnIcon} bg-[var(--whatsapp)] text-white hover:bg-[var(--whatsapp-hover)]`}
                   >
                     <svg
                       className="h-5 w-5"
@@ -197,7 +199,7 @@ export default function Contact() {
 
           <FadeIn delay={200}>
             <ContactCard
-              title="Email"
+              title={tarjetas.email}
               icon={
                 <svg
                   className="h-5 w-5"
@@ -217,7 +219,7 @@ export default function Contact() {
               actions={
                 <a
                   href={mailto}
-                  aria-label="Escribir email"
+                  aria-label={tarjetas.botonEmail}
                   className={`${btnIcon} bg-primary text-white hover:bg-primary-dark`}
                 >
                   <svg

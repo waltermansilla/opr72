@@ -1,18 +1,23 @@
-import Image from "next/image";
-import { getRequestSiteContent } from "@/lib/site-request";
+"use client";
 
-type LogoProps = {
+import Image from "next/image";
+import type { SiteData } from "@/data/site";
+
+type LogoClientProps = {
+  logoContent: SiteData["logo"];
+  siteName: string;
   size?: number;
   showText?: boolean;
   className?: string;
 };
 
-export default async function Logo({
+export default function LogoClient({
+  logoContent,
+  siteName,
   size = 48,
   showText,
   className = "",
-}: LogoProps) {
-  const { site, logoContent } = await getRequestSiteContent();
+}: LogoClientProps) {
   const showLabel =
     showText ?? logoContent.mostrarTextoJuntoAlLogo ?? !logoContent.ruta;
 
@@ -35,12 +40,12 @@ export default async function Logo({
           style={{ width: size, height: size, fontSize: size * 0.28 }}
           aria-hidden
         >
-          {site.sitio.nombre.slice(0, 3)}
+          {siteName.slice(0, 3)}
         </span>
       )}
       {showLabel && (
         <span className="truncate text-base font-bold tracking-wide text-primary sm:text-lg md:text-xl">
-          {site.sitio.nombre}
+          {siteName}
         </span>
       )}
     </span>

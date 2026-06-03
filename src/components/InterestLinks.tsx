@@ -1,17 +1,21 @@
 import StockImage from "./StockImage";
 import FadeIn from "./FadeIn";
 import SectionHeader from "./SectionHeader";
-import { interestLinks } from "@/data/content";
+import { getRequestSiteContent } from "@/lib/site-request";
 
-export default function InterestLinks() {
+export default async function InterestLinks() {
+  const { interestLinks, interestLinksContent } =
+    await getRequestSiteContent();
+  const { encabezado } = interestLinksContent;
+
   return (
-    <section id="enlaces" className="bg-white py-20 sm:py-24">
+    <section id={interestLinksContent.id} className="bg-white py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <SectionHeader
-            label="Recursos"
-            title="Enlaces de Interés"
-            description="Organismos y normativas de referencia en materia marítima y portuaria."
+            label={encabezado.etiqueta}
+            title={encabezado.titulo}
+            description={encabezado.descripcion}
           />
         </FadeIn>
 

@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef } from "react";
-import { menuLinks } from "@/data/content";
-import Logo from "./Logo";
+import type { SiteContent } from "@/data/content";
+import LogoClient from "./LogoClient";
 import NavLink from "./NavLink";
 
 const contactBtnClass =
@@ -11,7 +11,20 @@ const contactBtnClass =
 const navItemClass =
   "touch-manipulation cursor-pointer rounded-lg px-3 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/5 hover:text-primary-dark active:bg-primary/10";
 
-export default function Navbar() {
+type NavbarProps = Pick<
+  SiteContent,
+  "menuLinks" | "navContactLabel" | "logoContent" | "site"
+> & {
+  homeHref: string;
+};
+
+export default function Navbar({
+  menuLinks,
+  navContactLabel,
+  logoContent,
+  site,
+  homeHref,
+}: NavbarProps) {
   const mobileMenuRef = useRef<HTMLDetailsElement>(null);
 
   const closeMobileMenu = () => {
@@ -26,7 +39,6 @@ export default function Navbar() {
       >
         {/* ——— Mobile ——— */}
         <div className="relative mx-auto grid h-12 max-w-7xl grid-cols-3 items-center px-3 sm:px-5 lg:hidden">
-          {/* Menú nativo con <details> — funciona sin depender de onClick */}
           <details ref={mobileMenuRef} className="group relative">
             <summary
               className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full text-primary [-webkit-tap-highlight-color:transparent] marker:content-none active:bg-primary/10 [&::-webkit-details-marker]:hidden"
@@ -77,16 +89,20 @@ export default function Navbar() {
           </details>
 
           <a
-            href="/"
+            href={homeHref}
             className="inline-flex touch-manipulation items-center justify-center active:opacity-80"
             aria-label="Recargar inicio"
           >
-            <Logo size={44} />
+            <LogoClient
+              logoContent={logoContent}
+              siteName={site.sitio.nombre}
+              size={44}
+            />
           </a>
 
           <div className="flex items-center justify-end">
             <NavLink sectionId="contacto" className={contactBtnClass}>
-              Contacto
+              {navContactLabel}
             </NavLink>
           </div>
         </div>
@@ -94,11 +110,15 @@ export default function Navbar() {
         {/* ——— Desktop ——— */}
         <div className="mx-auto hidden h-14 max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-6 lg:grid xl:px-8">
           <a
-            href="/"
+            href={homeHref}
             className="inline-flex touch-manipulation items-center justify-self-start active:opacity-80"
             aria-label="Recargar inicio"
           >
-            <Logo size={44} />
+            <LogoClient
+              logoContent={logoContent}
+              siteName={site.sitio.nombre}
+              size={44}
+            />
           </a>
 
           <ul className="flex flex-wrap items-center justify-center gap-2 xl:gap-4">
@@ -116,7 +136,7 @@ export default function Navbar() {
 
           <div className="flex items-center justify-self-end">
             <NavLink sectionId="contacto" className={contactBtnClass}>
-              Contacto
+              {navContactLabel}
             </NavLink>
           </div>
         </div>

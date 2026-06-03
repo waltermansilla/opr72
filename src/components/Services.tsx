@@ -1,17 +1,20 @@
 import StockImage from "./StockImage";
 import FadeIn from "./FadeIn";
 import SectionHeader from "./SectionHeader";
-import { services } from "@/data/content";
+import { getRequestSiteContent } from "@/lib/site-request";
 
-export default function Services() {
+export default async function Services() {
+  const { services, servicesContent } = await getRequestSiteContent();
+  const { encabezado } = servicesContent;
+
   return (
-    <section id="servicios" className="bg-white py-20 sm:py-24">
+    <section id={servicesContent.id} className="bg-white py-20 sm:py-24">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <SectionHeader
-            label="Áreas de trabajo"
-            title="Servicios"
-            description="Cinco departamentos especializados para cubrir todas las necesidades de protección marítima y portuaria."
+            label={encabezado.etiqueta}
+            title={encabezado.titulo}
+            description={encabezado.descripcion}
           />
         </FadeIn>
 

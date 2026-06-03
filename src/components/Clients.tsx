@@ -1,26 +1,28 @@
 import StockImage from "./StockImage";
 import FadeIn from "./FadeIn";
 import SectionHeader from "./SectionHeader";
-import { clients } from "@/data/content";
-import { stockImages } from "@/data/images";
+import { getRequestSiteContent } from "@/lib/site-request";
 
-export default function Clients() {
+export default async function Clients() {
+  const { clients, clientsContent } = await getRequestSiteContent();
+  const { encabezado } = clientsContent;
+
   return (
-    <section id="clientes" className="bg-slate-50 py-20 sm:py-24">
+    <section id={clientsContent.id} className="bg-slate-50 py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <SectionHeader
-            label="Trayectoria"
-            title="Nuestros Principales Clientes"
-            description="Terminales, consorcios portuarios y empresas líderes del sector energético y logístico."
+            label={encabezado.etiqueta}
+            title={encabezado.titulo}
+            description={encabezado.descripcion}
           />
         </FadeIn>
 
         <FadeIn delay={50}>
           <div className="relative mb-10 h-36 overflow-hidden rounded-2xl shadow-md ring-1 ring-slate-200/80 sm:h-44">
             <StockImage
-              src={stockImages.clients.header}
-              alt="Operaciones portuarias"
+              src={clientsContent.imagenCabecera}
+              alt={clientsContent.imagenCabeceraAlt}
               fill
               className="object-cover"
               sizes="100vw"

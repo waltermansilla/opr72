@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Source_Sans_3 } from "next/font/google";
+import { Fraunces, Source_Sans_3 } from "next/font/google";
 import ScrollToTop from "@/components/ScrollToTop";
 import { SCROLL_RESET_SCRIPT } from "@/lib/scroll-to-section";
+import { getRequestSiteContent } from "@/lib/site-request";
 import "./globals.css";
+import "@/styles/opr72.css";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -17,6 +19,12 @@ const sourceSans = Source_Sans_3({
   weight: ["400", "600", "700"],
 });
 
+const fraunces = Fraunces({
+  variable: "--font-opr-display",
+  subsets: ["latin"],
+  weight: ["600", "700"],
+});
+
 function getSiteUrl() {
   if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
     return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
@@ -27,33 +35,35 @@ function getSiteUrl() {
   return "http://localhost:3001";
 }
 
-export const metadata: Metadata = {
-  metadataBase: new URL(getSiteUrl()),
-  title: "PROSEPORT | OPR — Servicios Marítimos y Portuarios",
-  description:
-    "PROSEPORT es una Organización de Protección Reconocida (OPR) habilitada por la Prefectura Naval Argentina. Servicios de capacitación, protección, salvamento, buceo y asesoría legal en Buenos Aires.",
-  keywords: [
-    "OPR",
-    "protección portuaria",
-    "marítimo",
-    "Prefectura Naval Argentina",
-    "Buenos Aires",
-    "PROSEPORT",
-  ],
-  icons: {
-    icon: "/logo-proseport.jpeg",
-    apple: "/logo-proseport.jpeg",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { site, logoContent } = await getRequestSiteContent();
 
-export default function RootLayout({
+  return {
+    metadataBase: new URL(getSiteUrl()),
+    title: site.sitio.tituloPagina,
+    description: site.sitio.descripcion,
+    keywords: site.sitio.palabrasClave,
+    icons: logoContent.ruta
+      ? { icon: logoContent.ruta, apple: logoContent.ruta }
+      : undefined,
+  };
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { site, siteId } = await getRequestSiteContent();
+  const bodyTheme = siteId === "opr72" ? "opr72-theme" : "theme-proseport";
+
   return (
-    <html lang="es" className={sourceSans.variable}>
-      <body className="antialiased">
+    <html
+      lang={site.sitio.idioma}
+      className={`${sourceSans.variable} ${fraunces.variable}`}
+      suppressHydrationWarning
+    >
+      <body className={`antialiased ${bodyTheme}`}>
         <Script id="scroll-to-top" strategy="beforeInteractive">
           {SCROLL_RESET_SCRIPT}
         </Script>

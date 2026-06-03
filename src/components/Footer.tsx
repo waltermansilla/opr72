@@ -1,7 +1,8 @@
-import { contact } from "@/data/content";
+import { getRequestSiteContent } from "@/lib/site-request";
 import Logo from "./Logo";
 
-export default function Footer() {
+export default async function Footer() {
+  const { site, contact, footerContent } = await getRequestSiteContent();
   const year = new Date().getFullYear();
 
   return (
@@ -13,7 +14,7 @@ export default function Footer() {
               <Logo size={52} className="[&_img]:ring-2 [&_img]:ring-white/20" />
             </div>
             <p className="max-w-xs text-sm leading-relaxed text-slate-400">
-              Organización de Protección Reconocida — Buenos Aires, Argentina
+              {footerContent.descripcion}
             </p>
           </div>
           <div className="text-sm leading-relaxed">
@@ -35,7 +36,7 @@ export default function Footer() {
           </div>
         </div>
         <p className="mt-10 border-t border-slate-800 pt-6 text-center text-xs text-slate-500">
-          © {year} PROSEPORT. Todos los derechos reservados.
+          © {year} {site.sitio.nombre}. {footerContent.copyright}
         </p>
       </div>
     </footer>
