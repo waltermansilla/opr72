@@ -30,9 +30,9 @@
     "mostrarTextoJuntoAlLogo": false
   },
   "openGraph": {
-    "imagen": "/og-image.jpg?v=2",
-    "imagenAncho": 1200,
-    "imagenAlto": 630,
+    "imagen": "/og-image-2.jpeg?v=1",
+    "imagenAncho": 1280,
+    "imagenAlto": 666,
     "descripcion": "Protección portuaria, capacitación, salvamento y servicios marítimos habilitados por la Prefectura Naval."
   },
   "menu": {
