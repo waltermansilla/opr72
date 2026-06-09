@@ -4,7 +4,7 @@
     "nombre": "OPR72",
     "idioma": "es",
     "tituloPagina": "OPR72 | Organización de Protección Reconocida Nº 72",
-    "descripcion": "OPR72 — Consultora y O.P.R. Nº 72 habilitada por la Prefectura Naval Argentina. Protección, capacitación, medio ambiente, asesoría, salvamento y buceo para puertos y buques.",
+    "descripcion": "Consultora habilitada por la Prefectura Naval Argentina. Protección, capacitación, salvamento y servicios marítimos para puertos y buques.",
     "palabrasClave": [
       "OPR",
       "protección portuaria",
@@ -30,9 +30,10 @@
     "mostrarTextoJuntoAlLogo": false
   },
   "openGraph": {
-    "imagen": "/og-image.jpg",
+    "imagen": "/og-image.jpg?v=2",
     "imagenAncho": 1200,
-    "imagenAlto": 630
+    "imagenAlto": 630,
+    "descripcion": "Protección portuaria, capacitación, salvamento y servicios marítimos habilitados por la Prefectura Naval."
   },
   "menu": {
     "botonContacto": "Contacto",

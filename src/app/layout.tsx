@@ -40,6 +40,8 @@ export async function generateMetadata(): Promise<Metadata> {
     const ogImage = site.openGraph?.imagen ?? "/og-image.jpg";
     const ogWidth = site.openGraph?.imagenAncho ?? 1200;
     const ogHeight = site.openGraph?.imagenAlto ?? 630;
+    const shareDescription =
+        site.openGraph?.descripcion ?? site.sitio.descripcion;
 
     return {
         metadataBase: new URL(getSiteUrl()),
@@ -47,12 +49,17 @@ export async function generateMetadata(): Promise<Metadata> {
         description: site.sitio.descripcion,
         keywords: site.sitio.palabrasClave,
         icons: {
-            icon: "/favicon.png",
-            apple: "/apple-icon-180.png",
+            icon: [
+                { url: "/favicon.png", type: "image/png", sizes: "256x256" },
+                { url: "/favicon.png", type: "image/png", sizes: "32x32" },
+            ],
+            apple: [
+                { url: "/apple-icon-180.png", sizes: "180x180", type: "image/png" },
+            ],
         },
         openGraph: {
             title: site.sitio.tituloPagina,
-            description: site.sitio.descripcion,
+            description: shareDescription,
             url: getSiteUrl(),
             siteName: site.sitio.nombre,
             locale: "es_AR",
@@ -69,7 +76,7 @@ export async function generateMetadata(): Promise<Metadata> {
         twitter: {
             card: "summary_large_image",
             title: site.sitio.tituloPagina,
-            description: site.sitio.descripcion,
+            description: shareDescription,
             images: [ogImage],
         },
     };

@@ -20,6 +20,7 @@ type PinMetrics = {
 };
 
 const MIN_GAP_STATS_TO_HEADING = 50;
+const LG_QUERY = "(min-width: 1024px)";
 const ABOUT_LOGO_IMG_ID = "opr72-about-logo-img";
 const STATS_CONTENT_ID = "opr72-stats-content";
 const NAVBAR_ID = "opr72-navbar";
@@ -189,8 +190,9 @@ export default function Opr72IntroScroll() {
   const measure = () => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)")
       .matches;
+    const isLg = window.matchMedia(LG_QUERY).matches;
 
-    if (reduced) {
+    if (!isLg || reduced) {
       document.documentElement.style.removeProperty("--opr-about-pin-pt");
       document.documentElement.style.removeProperty("--opr-about-logo-mb");
       metricsRef.current = null;
