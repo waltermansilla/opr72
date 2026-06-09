@@ -1,51 +1,51 @@
 /** Offset del header fijo al hacer scroll */
 export function getHeaderOffset() {
-  if (typeof window === "undefined") return 48;
-  return window.innerWidth >= 1024 ? 60 : 48;
+    if (typeof window === "undefined") return 48;
+    return window.innerWidth >= 1024 ? 60 : 48;
 }
 
 /** Quita #seccion de la URL sin recargar. */
 export function clearUrlHash() {
-  if (typeof window === "undefined") return;
-  const clean = window.location.pathname + window.location.search;
-  if (window.location.hash) {
-    history.replaceState(null, "", clean);
-  }
+    if (typeof window === "undefined") return;
+    const clean = window.location.pathname + window.location.search;
+    if (window.location.hash) {
+        history.replaceState(null, "", clean);
+    }
 }
 
 /** Scroll arriba sin animación (evita el “salto” visible al recargar). */
 export function scrollToTopInstant() {
-  if (typeof window === "undefined") return;
-  const html = document.documentElement;
-  const prev = html.style.scrollBehavior;
-  html.style.scrollBehavior = "auto";
-  clearUrlHash();
-  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-  html.style.scrollBehavior = prev;
+    if (typeof window === "undefined") return;
+    const html = document.documentElement;
+    const prev = html.style.scrollBehavior;
+    html.style.scrollBehavior = "auto";
+    clearUrlHash();
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    html.style.scrollBehavior = prev;
 }
 
 export function scrollToSection(id: string) {
-  const el = document.getElementById(id.replace(/^#/, ""));
-  if (!el) return;
+    const el = document.getElementById(id.replace(/^#/, ""));
+    if (!el) return;
 
-  clearUrlHash();
+    clearUrlHash();
 
-  const top =
-    el.getBoundingClientRect().top + window.scrollY - getHeaderOffset();
+    const top =
+        el.getBoundingClientRect().top + window.scrollY - getHeaderOffset();
 
-  window.scrollTo({
-    top: Math.max(0, top),
-    behavior: "smooth",
-  });
+    window.scrollTo({
+        top: Math.max(0, top),
+        behavior: "smooth",
+    });
 }
 
 /** Al cargar/recargar: arriba del todo y URL limpia. */
 export function resetScrollOnLoad() {
-  if (typeof window === "undefined") return;
-  if ("scrollRestoration" in history) {
-    history.scrollRestoration = "manual";
-  }
-  scrollToTopInstant();
+    if (typeof window === "undefined") return;
+    if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+    }
+    scrollToTopInstant();
 }
 
 /** Para el script inline en layout (sin depender de módulos). */

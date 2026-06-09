@@ -41,6 +41,8 @@ export default function Reveal({
       el.style.transitionDelay = `${delay}ms`;
     }
 
+    const isMobile = window.matchMedia("(max-width: 1023px)").matches;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -48,7 +50,10 @@ export default function Reveal({
           observer.disconnect();
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+      {
+        threshold: isMobile ? 0.08 : 0.12,
+        rootMargin: isMobile ? "0px 0px -4% 0px" : "0px 0px -40px 0px",
+      },
     );
 
     observer.observe(el);

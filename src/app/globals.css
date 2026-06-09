@@ -1,49 +1,59 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --primary: #3b6f87;
-  --primary-dark: #2e5b69;
-  --surface: #f1f5f9;
-  --white: #ffffff;
+    --background: #f8fafc;
+    --foreground: #0f172a;
+    --primary: #3b6f87;
+    --primary-dark: #2e5b69;
+    --surface: #f1f5f9;
+    --white: #ffffff;
 }
 
 .theme-proseport {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --primary: #3b6f87;
-  --primary-dark: #2e5b69;
-  --surface: #f1f5f9;
-  --white: #ffffff;
-  --whatsapp: #25d366;
-  --whatsapp-hover: #20bd5a;
+    --background: #f8fafc;
+    --foreground: #0f172a;
+    --primary: #3b6f87;
+    --primary-dark: #2e5b69;
+    --surface: #f1f5f9;
+    --white: #ffffff;
+    --whatsapp: #25d366;
+    --whatsapp-hover: #20bd5a;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-dark: var(--primary-dark);
-  --color-surface: var(--surface);
-  --font-sans: var(--font-source-sans);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-primary: var(--primary);
+    --color-primary-dark: var(--primary-dark);
+    --color-surface: var(--surface);
+    --font-sans: var(--font-source-sans);
 }
 
 html {
-  -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
+    max-width: 100%;
 }
 
 section[id] {
-  scroll-margin-top: 3.75rem;
+    scroll-margin-top: 3.75rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-source-sans), system-ui, -apple-system, sans-serif;
-  min-width: 0;
-  overflow-anchor: none;
+    background: var(--background);
+    color: var(--foreground);
+    font-family:
+        var(--font-source-sans),
+        system-ui,
+        -apple-system,
+        sans-serif;
+    min-width: 0;
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
+    max-width: 100%;
+    overflow-anchor: none;
 }
 
 h1,
@@ -53,67 +63,67 @@ h4,
 p,
 li,
 a {
-  overflow-wrap: anywhere;
-  word-wrap: break-word;
+    overflow-wrap: anywhere;
+    word-wrap: break-word;
 }
 
 img,
 video,
 iframe {
-  max-width: 100%;
+    max-width: 100%;
 }
 
 /* Fade-in al scroll (ver FadeIn.tsx) */
 .fade-in-el {
-  opacity: 1;
-  transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .fade-in-el.fade-in-wait {
-  opacity: 0;
-  transform: translateY(1.25rem);
+    opacity: 0;
+    transform: translateY(1.25rem);
 }
 
 .fade-in-el.fade-in-play {
-  animation: fade-in-up 0.7s ease-out forwards;
-  animation-delay: var(--fade-delay, 0ms);
+    animation: fade-in-up 0.7s ease-out forwards;
+    animation-delay: var(--fade-delay, 0ms);
 }
 
 @keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(1.25rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(1.25rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* En móvil: sin fade-in — evita capas invisibles que bloquean toques */
 @media (max-width: 1023px) {
-  .fade-in-el.fade-in-wait,
-  .fade-in-el.fade-in-play {
-    opacity: 1;
-    transform: none;
-    animation: none;
-  }
+    .fade-in-el.fade-in-wait,
+    .fade-in-el.fade-in-play {
+        opacity: 1;
+        transform: none;
+        animation: none;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .fade-in-el.fade-in-wait {
-    opacity: 1;
-    transform: none;
-  }
-  .fade-in-el.fade-in-play {
-    animation: none;
-  }
+    .fade-in-el.fade-in-wait {
+        opacity: 1;
+        transform: none;
+    }
+    .fade-in-el.fade-in-play {
+        animation: none;
+    }
 }
 
 /* Tarjetas y superficies reutilizables */
 .card {
-  border-radius: 1rem;
-  border: 1px solid rgb(226 232 240);
-  background: white;
-  box-shadow: 0 1px 2px rgb(15 23 42 / 0.04);
+    border-radius: 1rem;
+    border: 1px solid rgb(226 232 240);
+    background: white;
+    box-shadow: 0 1px 2px rgb(15 23 42 / 0.04);
 }

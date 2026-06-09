@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="IMAGENES/proseport.png" type="image/x-icon">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROSEPORT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <style>
+    /* Estilos Generales */
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: #3B6F87;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    position: relative; /* Para que los elementos absolutos se posicionen correctamente */
+}
+
+.logo img {
+    width: 150px; /* Ajusta el tamaño del logo según sea necesario */
+}
+
+.menu-icon {
+    display: none; /* Ocultar por defecto */
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex; /* Mostrar en pantallas grandes */
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #2e5b69;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Ocultar por defecto en pantallas pequeñas */
+        flex-direction: column;
+        position: absolute;
+        top: 60px; /* Altura del menú */
+        left: 0;
+        background-color: #3B6F87;
+        width: 100%;
+        z-index: 1000; /* Asegurarse de que se superponga a otros elementos */
+    }
+
+    .nav-links.active {
+        display: flex; /* Mostrar cuando está activo */
+    }
+
+    .menu-icon {
+        display: block; /* Mostrar el icono del menú en pantallas pequeñas */
+    }
+}
+
+.contact-section {
+    padding: 40px 20px;
+    background-color: #ffffff;
+}
+
+.map-responsive {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.map-responsive iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.contact-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap; /* Permitir que los elementos se envuelvan en pantallas más pequeñas */
+    margin-top: 30px;
+}
+
+.contact-box {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+    flex: 1;
+    min-width: 250px; /* Ancho mínimo para cada caja */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.contact-box h3 {
+    margin-top: 0;
+    color: #3B6F87;
+}
+
+.contact-box a {
+    color: #3B6F87;
+    text-decoration: none;
+}
+
+.contact-box a:hover {
+    text-decoration: underline;
+}
+
+.whatsapp-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25D366;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.whatsapp-logo {
+    width: 50px;
+    height: 50px;
+}
+#botones-interactivos {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.subtitulo {
+    color: #3B6F87; /* Color acorde a la paleta de la página */
+    font-size: 29px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.boton-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px; /* Mayor separación entre botones */
+}
+
+.boton {
+    background-color: #3B6F87;
+    color: white;
+    padding: 20px 40px; /* Botones más grandes */
+    border: none;
+    border-radius: 10px; /* Esquinas redondeadas */
+    cursor: pointer;
+    font-size: 18px; /* Texto más grande */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.boton:hover {
+    background-color: #2e5b69;
+    transform: scale(1.1); /* Aumenta ligeramente al pasar el mouse */
+}
+
+.boton:active {
+    transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+    .boton {
+        width: 80%; /* Los botones ocuparán más ancho en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .boton {
+        width: 100%; /* Los botones ocuparán el 100% en pantallas muy pequeñas */
+    }
+}
+
+.whatsapp-button {
+  position: fixed; /* Fijo en la pantalla */
+  bottom: 20px; /* Espacio desde el borde inferior */
+  right: 20px; /* Espacio desde el borde derecho */
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  z-index: 1000; /* Asegura que esté sobre otros elementos */
+}
+
+.whatsapp-logo {
+  width: 50px; /* Tamaño del logo */
+}
+
+.whatsapp-bubble {
+  position: absolute;
+  right: 70px; /* Ajusta la distancia entre la burbuja y el icono */
+  background-color: #25d366;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 14px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0; /* Comienza invisible */
+  transform: scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  white-space: nowrap;
+}
+
+/* Aparece la burbuja al pasar el ratón */
+.whatsapp-button:hover .whatsapp-bubble {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Triángulo en la burbuja */
+.whatsapp-bubble::before {
+  content: "";
+  position: absolute;
+  right: -8px; /* Alineado al borde derecho */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 0 8px 8px;
+  border-color: transparent transparent transparent #25d366;
+}
+
+/* Responsividad */
+@media (max-width: 480px) {
+  .whatsapp-bubble {
+    font-size: 12px; /* Tamaño de fuente menor en pantallas pequeñas */
+    right: 60px; /* Ajusta el espacio para móviles */
+  }
+
+  .whatsapp-logo {
+    width: 40px; /* Reduce el tamaño del logo en móviles */
+  }
+}
+
+
+  </style>
+
+<!-- HEADER -->
+<nav>
+    <div class="logo">
+        <a href="index.html"><img src="IMAGENES/proseport.png" alt="Logo de la empresa" id="logo"></a>
+    </div>
+    <div class="menu-icon" id="menu-icon">&#9776;</div>
+    <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="enlaces.html">Enlaces de interés</a></li>
+
+    </ul>
+</nav>
+
+<script>
+    // Script para el menú desplegable en pantallas pequeñas
+    const menuIcon = document.getElementById('menu-icon');
+    const navLinks = document.getElementById('nav-links');
+
+    menuIcon.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+</script>
+
+<!-- FIN DE HEADER -->
+
+<section class="contact-section">
+
+    <!-- Contenedor del Mapa -->
+    <div class="map-container">
+        <div class="map-responsive">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.2287681416233!2d-58.375225924524926!3d-34.59837625721571!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccacb396bfaad%3A0xc29d175562c1ec09!2sAv.%20C%C3%B3rdoba%20391%2C%20C1054%20AAC%2C%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1725551399974!5m2!1ses!2sar" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div><br><br>
+
+    <!-- Sección de Contacto -->
+    <div class="contact-container">
+
+        <!-- Email -->
+        <div class="contact-box" id="email-box">
+            <h3>Email <i class="fas fa-envelope"></i></h3>
+            <p>Para consultas, por favor envíanos un email a:</p>
+            <p class="email-links">
+                <a href="mailto:administracion@proseport.com.ar">administracion@proseport.com.ar</a><br>
+                <a href="mailto:hectorgatica@proseport.com.ar">hectorgatica@proseport.com.ar</a>
+            </p>
+        </div>
+
+        <!-- Teléfono -->
+        <div class="contact-box" id="telefono-box">
+            <h3>Teléfono <i class="fas fa-phone-alt"></i></h3>
+            <p>Contáctanos a los siguientes números:</p>
+            <p>
+                <a href="tel:+5491164585350">+54 9 1164585350</a><br>
+            </p>
+            <h3>Administración</h3>
+            <a href="tel:+5491148024356">+54 9 1148024356</a>
+        </div>
+
+        <!-- Dirección -->
+        <div class="contact-box" id="direccion-box">
+            <h3>Dirección <i class="fas fa-map-marker-alt"></i></h3>
+            <p>Córdoba 391 6to “B”<br>San Nicolás, CABA</p>
+        </div>
+
+    </div>
+    
+    
+    
+    
+</section>
+
+<a href="https://wa.me/5491164585350?text=Hola!%20Estaba%20viendo%20la%20pagina%20Proseport,%20y%20quería%20hacer%20una%20consulta" 
+   target="_blank" class="whatsapp-button">
+   <img src="IMAGENES/WhatsApp.svg" alt="WhatsApp Logo" class="whatsapp-logo">
+   <span class="whatsapp-bubble">¡Hola! ¿En qué te puedo ayudar?</span>
+</a>
+
+
+</body>
+</html>
+

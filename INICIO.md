@@ -1,11 +1,11 @@
-# Cómo ver PROSEPORT en local
+# Cómo ver OPR72 en local
 
 **Puerto fijo del proyecto: `3001`** (siempre el mismo)
 
 ## Desarrollo (con cambios en vivo)
 
 ```bash
-cd /Users/osx/Desktop/proseport
+cd /Users/osx/Desktop/opr72
 npm run dev
 ```
 
@@ -45,7 +45,7 @@ O cerrá la terminal anterior donde corría el servidor (`Ctrl + C`).
 ## Publicar en Vercel (producción)
 
 1. Entrá a [vercel.com](https://vercel.com) e iniciá sesión con GitHub.
-2. **Add New → Project** → elegí el repo `waltermansilla/proseport`.
+2. **Add New → Project** → elegí el repo `waltermansilla/opr72`.
 3. Dejá la configuración por defecto:
    - **Framework:** Next.js
    - **Build Command:** `npm run build`
@@ -54,10 +54,8 @@ O cerrá la terminal anterior donde corría el servidor (`Ctrl + C`).
 
 Cada push a `main` vuelve a publicar solo.
 
+**URL de producción:** [opr72.vercel.app](https://opr72.vercel.app)
+
 ### Dominio propio (opcional)
 
 En el proyecto de Vercel: **Settings → Domains** → agregá tu dominio y seguí las instrucciones DNS.
-
-### Región
-
-El sitio se sirve desde **São Paulo (`gru1`)**, la región más cercana a Argentina.

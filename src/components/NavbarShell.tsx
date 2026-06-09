@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 export default async function NavbarShell() {
   const headerList = await headers();
   const siteId = headerList.get("x-site-id");
-  const homeHref = siteId === "proseport" ? "/proseport" : "/";
+  const homeHref = "/";
 
   const { menuLinks, navContactLabel, logoContent, site } =
     await getRequestSiteContent();

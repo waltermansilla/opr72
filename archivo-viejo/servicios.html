@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="IMAGENES/proseport.png" type="image/x-icon">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROSEPORT - Servicios</title>
+    <link rel="stylesheet" href="#">
+   
+      
+</head>
+<style>
+    /* Estilos Generales */
+    /* Disposición de la sección de servicios */
+.servicio-content {
+    display: flex;
+    flex-direction: row; /* Alinear imagen y texto en fila */
+    align-items: stretch; /* Estirar para que imagen y texto tengan el mismo alto */
+    margin-bottom: 20px; /* Separación entre cada servicio */
+}
+
+.servicio-img {
+    width: 40%; /* La imagen ocupa el 40% del contenedor */
+    height: auto;
+    object-fit: cover; /* Asegura que la imagen ocupe el espacio sin distorsionarse */
+    border-radius: 5px;
+    margin-right: 20px; /* Espacio entre imagen y texto */
+}
+
+.servicio-text {
+    width: 60%; /* El texto ocupa el 60% del contenedor */
+}
+
+@media (max-width: 768px) {
+    .servicio-content {
+        flex-direction: column; /* Cambiar a una disposición en columna en pantallas pequeñas */
+    }
+
+    .servicio-img {
+        width: 100%; /* Imagen ocupa el 100% en pantallas pequeñas */
+        margin-right: 0;
+        margin-bottom: 15px; /* Agregar margen inferior para separar de texto */
+    }
+
+    .servicio-text {
+        width: 100%; /* Texto también ocupa el 100% */
+    }
+}
+
+    body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #3B6F87;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            position: relative; /* Para que los elementos absolutos se posicionen correctamente */
+        }
+
+        .logo img {
+            width: 150px; /* Ajusta el tamaño del logo según sea necesario */
+        }
+
+        .menu-icon {
+            display: none; /* Ocultar por defecto */
+            cursor: pointer;
+            font-size: 24px;
+            color: white;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex; /* Mostrar en pantallas grandes */
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #2e5b69;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* Ocultar por defecto en pantallas pequeñas */
+                flex-direction: column;
+                position: absolute;
+                top: 60px; /* Altura del menú */
+                left: 0;
+                background-color: #3B6F87;
+                width: 100%;
+                z-index: 1000; /* Asegurarse de que se superponga a otros elementos */
+            }
+
+            .nav-links.active {
+                display: flex; /* Mostrar cuando está activo */
+            }
+
+            .menu-icon {
+                display: block; /* Mostrar el icono del menú en pantallas pequeñas */
+            }
+        }
+
+        /* Otros estilos de la página... */
+        #servicios {
+            background-image: url(IMAGENES/fondo\ de\ servicios.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 20px;
+            color: #333;
+        }
+
+        /* Estilos para los servicios... */
+        .servicio-header {
+            background-color: #3B6F87;
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            text-align: left;
+            font-size: 18px;
+            border: none;
+            outline: none;
+            transition: background-color 0.3s;
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .servicio-header:hover {
+            background-color: #2e5b69;
+        }
+
+        .servicio-details {
+            padding: 15px;
+            display: none; /* Oculto por defecto */
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            border-radius: 0 0 5px 5px; /* Bordes redondeados en la parte inferior */
+        }
+
+        .servicio-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            transition: transform 0.3s; /* Transición suave al cambiar el tamaño */
+        }
+
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366;
+            border-radius: 50%;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .whatsapp-logo {
+            width: 50px;
+            height: 50px;
+        }
+        .whatsapp-button {
+  position: fixed; /* Fijo en la pantalla */
+  bottom: 20px; /* Espacio desde el borde inferior */
+  right: 20px; /* Espacio desde el borde derecho */
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  z-index: 1000; /* Asegura que esté sobre otros elementos */
+}
+
+.whatsapp-logo {
+  width: 50px; /* Tamaño del logo */
+}
+
+.whatsapp-bubble {
+  position: absolute;
+  right: 70px; /* Ajusta la distancia entre la burbuja y el icono */
+  background-color: #25d366;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 14px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0; /* Comienza invisible */
+  transform: scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  white-space: nowrap;
+}
+
+/* Aparece la burbuja al pasar el ratón */
+.whatsapp-button:hover .whatsapp-bubble {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Triángulo en la burbuja */
+.whatsapp-bubble::before {
+  content: "";
+  position: absolute;
+  right: -8px; /* Alineado al borde derecho */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 0 8px 8px;
+  border-color: transparent transparent transparent #25d366;
+}
+
+/* Responsividad */
+@media (max-width: 480px) {
+  .whatsapp-bubble {
+    font-size: 12px; /* Tamaño de fuente menor en pantallas pequeñas */
+    right: 60px; /* Ajusta el espacio para móviles */
+  }
+
+  .whatsapp-logo {
+    width: 40px; /* Reduce el tamaño del logo en móviles */
+  }
+}
+
+   
+</style>
+<body>
+    <!--  <style>
+         -->
+    <nav>
+        <div class="logo">
+            <a href="index.html"><img src="IMAGENES/proseport.png" alt="Logo de la empresa" id="logo"></a>
+        </div>
+        <div class="menu-icon" id="menu-icon">&#9776;</div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+            <li><a href="enlaces.html">Enlaces de interés</a></li>
+
+        </ul>
+    </nav>
+
+    <!-- FIN DE HEADER -->
+  <section id="servicios" style="background-image: url('IMAGENES/fondo\ de\ servicios.jpg'); background-size: cover; background-position: center;">
+    <h2 style="color: white ; text-align: center; font-size: 2.5rem; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); padding: 20px 0;">
+        Servicios
+    </h2>
+    <div class="accordion">
+        <div class="servicio">
+            <button class="servicio-header" onclick="toggleContent(this)">DEPARTAMENTO CAPACITACIÓN</button>
+            <div class="servicio-details">
+                <div class="servicio-content">
+                    <img src="IMAGENES/servicios.jpg" alt="Capacitación" class="servicio-img">
+                    <div class="servicio-text">
+                        <p><b>Cursos obligatorios acorde al Código Internacional para la Protección de los Buques y de las Instalaciones Portuarias (Código P.B.I.P).</b></p>
+                        <p>Nuestra actividad docente capacita profesionalmente a :</p>
+                        <ul>
+                            <li>Oficiales de Protección de las Instalaciones Portuarias (O.P.I.P)</li>
+                            <li>Oficiales de Protección del Buque (O.P.B)</li>
+                            <li>Oficiales de la Compañía para la Protección Marítima (O.C.P.M)</li>
+                            <li>Directores Técnicos (D.T)</li>
+                            <li>Personal de Vigilancia (V.G)</li>
+                            <li>Personal de Gremios Portuarios (G.P)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="servicio">
+            <button class="servicio-header" onclick="toggleContent(this)">DEPARTAMENTO PROTECCIÓN</button>
+            <div class="servicio-details">
+                <div class="servicio-content">
+                    <img src="IMAGENES/servicios1.jpg" alt="Protección" class="servicio-img">
+                    <div class="servicio-text">
+                        <p><b>Seguimiento en la implementación del sistema de protección acorde a los lineamientos establecidos en la Ordenanza No 06/03 (DPSJ).</b></p>
+                        <p>Encargado de efectuar:</p>
+                        <ul>
+                            <li>Instalaciones Portuarias</li>
+                            <li>Buques</li>
+                            <li>Amarraderos</li>
+                            <li>Empresas Privadas de Seguridad y Vigilancia</li>
+                            <li>Empresas de Trabajos Portuarios</li>
+                            <li>Sistemas de Gestión de Seguridad</li>
+                            <li>Manuales de Gestión de Seguridad: Asesoramiento y desarrollo</li>
+                            <li>Cursos de Formación de Auditores Internos, Persona Designada (MSC-MEPC.7/Circ.6)</li>
+                            <li>Capacitación integral de las tripulaciones y personal terrestre de las Compañías mediante Cursos de inducción.<br> Cursos específicos de
+
+                                tripulaciones de buques pesqueros bajo los lineamientos de la Guía Orientativa para la Implementación de Sistemas de Gestión de la
+                                
+                                Seguridad en Buques Pesqueros – Versión 1 – y normativa específica.</li>
+                            <li> Seguimiento de la implementación, auditorías en Compañía y Buques (Código ISM – Normativas Nacionales e Internacionales)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="servicio">
+            <button class="servicio-header" onclick="toggleContent(this)">DEPARTAMENTO SALVAMENTO Y BUCEO</button>
+            <div class="servicio-details">
+                <div class="servicio-content">
+                    <img src="IMAGENES/servicios2.jpg" alt="Salvamento y Buceo" class="servicio-img">
+                    <div class="servicio-text">
+                        <p><b>Asesoramiento para operaciones de buceo profesional en estructuras sumergidas.</b></p>
+                        <ul>
+                            <li>Informes técnicos</li>
+                            <li>Inspecciones subacuáticas</li>
+                            <li>Ingeniería y proyectos de obra en agua y bajo agua</li>
+                            <li>Cortes bajo agua con soplete</li>
+                            <li>Colocación de anclajes</li>
+                            <li>Rotura de hormigón bajo agua con martillos hidráulicos</li>
+                            <li>Reflotamientos</li>
+                            <li>Búsqueda y recuperación bajo agua</li>
+                            <li>Batimetrías</li>
+                            <li>Colocación de protecciones costeras (mantas-geo celdas)</li>
+                            <li>Remoción y extracción de sedimentos, barros y arenas</li>
+                            <li>Reparación y mantenimiento de sistemas mecánicos sumergidos</li>
+                            <p><b>Todo el personal del Departamento cumple con lo especificado en la Ordenanza No 04/08 (DPSN) de la Prefectura Naval Argentina
+
+                            </b> </p>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="servicio">
+            <button class="servicio-header" onclick="toggleContent(this)">DEPARTAMENTO LEGALES</button>
+            <div class="servicio-details">
+                <div class="servicio-content">
+                    <img src="IMAGENES/SERVICIOOOO.jpg" alt="Gestión Ambiental" class="servicio-img">
+                    <div class="servicio-text">
+                        <h3>Representación Legal</h3>
+                        <p>Nuestro equipo se encarga de la representación legal de la empresa ante los juzgados y tribunales de todo el país. Además, supervisan el cumplimiento de normativas nacionales e internacionales que aseguran el buen funcionamiento de la empresa.</p>
+                        <p> Asimismo, tienen los controles de normativas nacionales e internacionales para el buen funcionamiento de la empresa, y debiendo planificar las acciones legales a adoptar y los recursos a dedicar a cada área legal para evitar contingencias en primer lugar, y en segundo lugar para ofrecer las alternativas legales más plausibles o afines con la política de la empresa y más económicas desde el punto de vista de coste financiero-fiscal.
+
+                        </p>
+                        <h4>Funciones:</h4>
+                        <ul>
+                            <li>Producción de la normatividad interna de la empresa.</li>
+                            <li>Representación legal de la empresa en juzgados y tribunales.</li>
+                            <li>Control de las normativas generales en colaboración con la dirección administrativa para garantizar un funcionamiento eficiente de la empresa.</li><br>
+                        </ul>
+
+                            <h4>DERECHO MARÍTIMO:</h4>
+                            <ul>
+                                <li>Asesoramiento Normativo Nacional e Internacional.</li>
+                            </ul>
+                                <h4>DERECHO PORTUARIO:</h4>
+                                <ul>
+                                    <li>Asesoramiento por daños por contaminación.</li>
+                                    <li>Redacción de cláusulas generales de contratación.</li>
+                                    <li>Asistencia normativa sobre habilitación y constitución de puertos (Incluye asesoramiento sobre cumplimiento normativa de la Autoridad Marítima Argentina).</li><br>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="servicio">
+            <button class="servicio-header" onclick="toggleContent(this)">DEPARTAMENTO OFICIALES DE PROTECCIÓN</button>
+            <div class="servicio-details">
+                <div class="servicio-content">
+                    <img src="IMAGENES/servicio5.jpg" alt="Oficiales de Protección" class="servicio-img">
+                    <div class="servicio-text">
+                        <h3>DEPARTAMENTO OFICIALES DE PROTECCIÓN</h3>
+                        <p>Nuestros O.P.I.P.s están altamente capacitados en la actividad y operación portuaria, así como en la reglamentación, procedimientos y legislación aplicables.</p>
+                        <h4>Funciones Principales:</h4>
+                        <ul>
+                            <li>Acompañar y gestionar las actividades necesarias para que la Terminal supere las Inspecciones Anuales de Recertificación del Plan de Protección de la Instalación Portuaria.</li>
+                            <li>Coordinar la implementación del Plan de Protección de la Instalación Portuaria (PPIP) con los Oficiales de Protección de Buques (OPB) y los Oficiales de la Compañía para la Protección Marítima (OCPM).</li>
+                            <li>Realizar las Declaraciones de Protección para los buques que arriben a la zona portuaria.</li>
+                            <li>Establecer mecanismos de coordinación con la Prefectura Naval Argentina (P.N.A).</li>
+                            <li>Ayudar a los OPB a confirmar la identidad de las personas que tratan de subir a bordo, cuando así se requiera.</li>
+                            <li>Todas estas actividades están previstas y contempladas en la Ordenanza No 01/04 –DPSJ concordantes con el Código de Protección de
+
+                                Buques e Instalaciones Portuarias (P.B.I.P).</li>
+                            <li>Efectuar enlace con las Agencias Marítimas, Proveedores, etc que deseen ingresar a zona portuaria.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!--  -->
+    <a href="https://wa.me/5491164585350?text=Hola!%20Estaba%20viendo%20la%20pagina%20Proseport,%20y%20quería%20hacer%20una%20consulta" 
+    target="_blank" class="whatsapp-button">
+    <img src="IMAGENES/WhatsApp.svg" alt="WhatsApp Logo" class="whatsapp-logo">
+    <span class="whatsapp-bubble">¡Hola! ¿En qué te puedo ayudar?</span>
+ </a>
+ 
+
+    <script>
+        // Función para alternar la visualización de detalles de servicios
+        function toggleContent(button) {
+            const details = button.nextElementSibling;
+            details.style.display = details.style.display === "block" ? "none" : "block"; // Alternar visibilidad
+        }
+
+        // Funcionalidad del menú responsive
+        document.getElementById("menu-icon").addEventListener("click", function () {
+            const navLinks = document.getElementById("nav-links");
+            navLinks.classList.toggle("active"); // Alternar clase activa
+        });
+    </script>
+</body>
+
+</html>

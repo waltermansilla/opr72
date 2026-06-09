@@ -6,55 +6,41 @@ const { opr } = opr72Content;
 
 export default function Opr72Opr() {
   return (
-    <section id={opr.id} className="relative overflow-hidden bg-white py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
-          <Reveal>
-            <p className="text-sm font-bold tracking-[0.2em] text-[var(--opr-sky)] uppercase">
-              {opr.label}
-            </p>
-            <h2 className="mt-3 font-[family-name:var(--font-opr-display)] text-3xl font-bold text-[var(--opr-navy)] sm:text-4xl">
-              {opr.title}
-            </h2>
-            <p className="mt-6 text-lg leading-relaxed text-[var(--opr-navy)]/80">
-              {opr.lead}
-            </p>
-            <div className="mt-10 space-y-6">
-              {opr.blocks.map((block, i) => (
-                <Reveal key={block.title} delay={i * 80} variant="left">
-                  <div className="border-l-4 border-[var(--opr-sky)] pl-5">
-                    <h3 className="text-lg font-bold text-[var(--opr-navy)]">
-                      {block.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-[var(--opr-navy)]/75 sm:text-base">
-                      {block.text}
-                    </p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </Reveal>
+    <section id={opr.id} className="relative overflow-hidden py-20 sm:py-28">
+      <Image
+        src={opr.image}
+        alt="Horizonte marítimo argentino"
+        fill
+        className="object-cover"
+        sizes="100vw"
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-[var(--opr-navy)]/75 via-[var(--opr-navy)]/55 to-[var(--opr-navy)]/30" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[var(--opr-navy)]/50 via-transparent to-[var(--opr-navy)]/15" />
 
-          <Reveal variant="right" className="relative">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-2xl lg:sticky lg:top-28">
-              <Image
-                src={opr.image}
-                alt="Horizonte marítimo argentino"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[var(--opr-navy)]/80 to-transparent" />
-              <div className="absolute right-6 bottom-6 left-6 rounded-xl border border-white/20 bg-white/10 p-5 backdrop-blur-md">
-                <p className="text-xs font-bold tracking-widest text-white/70 uppercase">
-                  República Argentina
-                </p>
-                <p className="mt-2 text-lg font-semibold text-white">
-                  Autoridad Marítima · Prefectura Naval · Fuerzas Armadas
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Reveal className="max-w-3xl">
+          <p className="text-sm font-bold tracking-[0.2em] text-[var(--opr-sky-light)] uppercase">
+            {opr.label}
+          </p>
+          <h2 className="mt-3 font-[family-name:var(--font-opr-display)] text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+            {opr.title}
+          </h2>
+          <p className="mt-6 text-lg leading-relaxed text-white/90">
+            {opr.lead}
+          </p>
+        </Reveal>
+
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3 lg:gap-8">
+          {opr.blocks.map((block, i) => (
+            <Reveal key={block.title} delay={i * 80} variant="up">
+              <div className="h-full rounded-xl border border-white/15 bg-white/10 p-6 backdrop-blur-sm">
+                <h3 className="text-lg font-bold text-white">{block.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-white/85 sm:text-base">
+                  {block.text}
                 </p>
               </div>
-            </div>
-          </Reveal>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

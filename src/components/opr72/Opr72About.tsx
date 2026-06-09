@@ -1,48 +1,56 @@
 import Image from "next/image";
 import { opr72Content } from "@/data/opr72-content";
+import Opr72VideoPlayer from "./Opr72VideoPlayer";
 import Reveal from "./Reveal";
 
-const { about } = opr72Content;
+const { about, presentation, brand } = opr72Content;
 
 export default function Opr72About() {
   return (
-    <section id={about.id} className="bg-[var(--opr-sand)] py-20 sm:py-28">
+    <section
+      id={about.id}
+      className="relative z-10 bg-[var(--opr-sand)] pt-[var(--opr-about-pin-pt,5rem)] pb-0 sm:pb-0 lg:pb-32"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <Reveal variant="left">
-              <p className="text-sm font-bold tracking-[0.2em] text-[var(--opr-sky)] uppercase">
-                {about.label}
-              </p>
-              <h2 className="mt-3 font-[family-name:var(--font-opr-display)] text-3xl font-bold text-[var(--opr-navy)] sm:text-4xl lg:text-[2.75rem]">
-                {about.title}
-              </h2>
-            </Reveal>
-            <Reveal variant="left" delay={120} className="relative mt-8 aspect-[4/5] overflow-hidden rounded-2xl shadow-2xl">
-              <Image
-                src={about.imageMain}
-                alt="Operaciones portuarias"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </Reveal>
-            <Reveal
-              variant="scale"
-              delay={200}
-              className="relative -mt-16 ml-auto mr-4 hidden aspect-video w-2/3 overflow-hidden rounded-xl border-4 border-[var(--opr-sand)] shadow-xl lg:block"
-            >
-              <Image
-                src={about.imageSecondary}
-                alt="Vista del puerto"
-                fill
-                className="object-cover"
-                sizes="33vw"
-              />
-            </Reveal>
-          </div>
+        <div
+          id="opr72-about-logo"
+          className="mb-[var(--opr-about-logo-mb,3.5rem)] flex justify-center"
+        >
+          <Image
+            id="opr72-about-logo-img"
+            src={brand.logoStacked}
+            alt={`${brand.name} — ${brand.tagline}`}
+            width={280}
+            height={140}
+            className="h-auto w-56 sm:w-64 lg:w-80"
+            priority
+          />
+        </div>
 
-          <div className="space-y-6">
+        <Reveal className="mb-4 max-w-3xl lg:mb-0">
+          <p className="text-sm font-bold tracking-[0.2em] text-[var(--opr-sky)] uppercase">
+            {about.label}
+          </p>
+        </Reveal>
+
+        <div className="mt-2 grid gap-x-10 gap-y-8 lg:mt-3 lg:grid-cols-[1fr_minmax(250px,300px)] lg:items-start lg:gap-x-16 lg:gap-y-5">
+          <Reveal className="max-w-3xl lg:col-start-1 lg:row-start-1">
+            <h2 className="font-[family-name:var(--font-opr-display)] text-3xl font-bold text-[var(--opr-navy)] sm:text-4xl lg:text-[2.75rem]">
+              {about.title}
+            </h2>
+          </Reveal>
+
+          <Reveal
+            variant="right"
+            className="lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:justify-self-end"
+          >
+            <Opr72VideoPlayer />
+            <p className="mt-4 text-center text-sm text-[var(--opr-navy)]/65 lg:text-right">
+              {presentation.subtitle}
+            </p>
+          </Reveal>
+
+          <div className="mt-2 space-y-6 lg:col-start-1 lg:mt-0 lg:row-start-2">
             {about.paragraphs.map((p, i) => (
               <Reveal key={i} delay={i * 100}>
                 <p className="text-base leading-relaxed text-[var(--opr-navy)]/85 sm:text-lg">

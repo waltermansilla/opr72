@@ -1,28 +1,24 @@
-# PROSEPORT — Landing
+# OPR72 — Sitio institucional
 
-Sitio institucional de PROSEPORT (OPR), Next.js + Tailwind + TypeScript.
+Landing de OPR72 (Organización de Protección Reconocida Nº 72). Next.js + Tailwind + TypeScript.
+
+**Producción:** [opr72.vercel.app](https://opr72.vercel.app)
 
 ## Desarrollo
 
 ```bash
 npm install
-npm run download-images   # solo si faltan fotos de prueba
 npm run dev
 ```
 
 Abrí **http://127.0.0.1:3001** (puerto fijo).
 
-## Imágenes
-
-- **Prueba:** `public/images/stock/` (Unsplash). Ver `public/images/stock/README.md`.
-- **Producción:** reemplazá cada `.jpg` por la foto real con el mismo nombre.
-
 ## Git
 
-Repositorio: [github.com/waltermansilla/proseport](https://github.com/waltermansilla/proseport)
+Repositorio: [github.com/waltermansilla/opr72](https://github.com/waltermansilla/opr72)
 
 ```bash
-git remote add origin https://github.com/waltermansilla/proseport.git
+git remote add origin https://github.com/waltermansilla/opr72.git
 git push -u origin main
 ```
 

@@ -1,5 +1,5 @@
 {
-  "_nota": "Editá este archivo para el sitio OPR72 (Héctor). Misma estructura que proseport.json.",
+  "_nota": "Editá este archivo para el sitio OPR72 (Héctor). Metadatos, colores y menú del sitio.",
   "sitio": {
     "nombre": "OPR72",
     "idioma": "es",
@@ -25,9 +25,14 @@
     "whatsappHover": "#20bd5a"
   },
   "logo": {
-    "ruta": "/logo-opr72.png",
+    "ruta": "/favicon.png",
     "textoAlternativo": "OPR72 — Organización de Protección Reconocida Nº 72",
     "mostrarTextoJuntoAlLogo": false
+  },
+  "openGraph": {
+    "imagen": "/og-image.jpg",
+    "imagenAncho": 1200,
+    "imagenAlto": 630
   },
   "menu": {
     "botonContacto": "Contacto",

@@ -1,12 +1,12 @@
 ═══════════════════════════════════════════════════════
-  PROSEPORT — Puerto fijo: 3001
+  OPR72 — Puerto fijo: 3001
 ═══════════════════════════════════════════════════════
 
 Este proyecto SIEMPRE usa el puerto 3001.
 
 Para trabajar (desarrollo con cambios en vivo):
 
-  cd /Users/osx/Desktop/proseport
+  cd /Users/osx/Desktop/opr72
   npm run dev
 
 Para ver la versión compilada:
@@ -16,6 +16,10 @@ Para ver la versión compilada:
 Abrí siempre:
 
   http://127.0.0.1:3001
+
+Producción:
+
+  https://opr72.vercel.app
 
 Recarga forzada: Cmd + Shift + R
 
