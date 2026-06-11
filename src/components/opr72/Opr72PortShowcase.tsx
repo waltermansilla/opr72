@@ -37,8 +37,7 @@ function PortNavButton({
   layout: "mobile" | "desktop";
 }) {
   if (layout === "mobile") {
-    const mobileLabel =
-      "shortLabel" in item && item.shortLabel ? item.shortLabel : item.label;
+    const mobileLabel = item.shortLabel;
 
     return (
       <button
