@@ -32,7 +32,7 @@
 html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
-    overflow-x: hidden;
+    overflow-x: clip;
     overscroll-behavior-x: none;
     max-width: 100%;
 }
@@ -50,7 +50,7 @@ body {
         -apple-system,
         sans-serif;
     min-width: 0;
-    overflow-x: hidden;
+    overflow-x: clip;
     overscroll-behavior-x: none;
     max-width: 100%;
     overflow-anchor: none;

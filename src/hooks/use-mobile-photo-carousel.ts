@@ -4,11 +4,12 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const SWIPE_RATIO = 0.18;
 const SWIPE_MIN_PX = 48;
-const AUTOPLAY_PAUSE_MS = 6000;
+export const MOBILE_CAROUSEL_AUTOPLAY_PAUSE_MS = 6000;
 
 type CarouselOptions = {
   infinite?: boolean;
   gapRem?: number;
+  autoplayPauseMs?: number;
 };
 
 function getRealIndex(trackPos: number, imageCount: number, infinite: boolean) {
@@ -22,6 +23,13 @@ function getSlideStep(gapRem: number) {
   return gapRem > 0 ? `(100% + ${gapRem}rem)` : "100%";
 }
 
+function isAutoplayEnabled() {
+  if (typeof window === "undefined") return false;
+  const mq = window.matchMedia("(min-width: 1024px)");
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+  return !mq.matches && !reduced.matches;
+}
+
 export function useMobilePhotoCarousel(
   imageCount: number,
   autoplayMs: number,
@@ -29,6 +37,7 @@ export function useMobilePhotoCarousel(
 ) {
   const infinite = options.infinite ?? false;
   const gapRem = options.gapRem ?? 0.5;
+  const autoplayPauseMs = options.autoplayPauseMs ?? MOBILE_CAROUSEL_AUTOPLAY_PAUSE_MS;
   const canLoop = infinite && imageCount > 1;
 
   const [trackPos, setTrackPos] = useState(canLoop ? 1 : 0);
@@ -36,16 +45,16 @@ export function useMobilePhotoCarousel(
   const [transitionEnabled, setTransitionEnabled] = useState(true);
   const viewportRef = useRef<HTMLDivElement>(null);
   const autoplayPausedRef = useRef(false);
+  const autoplayTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const autoplayResumeRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const active = getRealIndex(trackPos, imageCount, canLoop);
 
-  const pauseAutoplay = useCallback(() => {
-    autoplayPausedRef.current = true;
-    if (autoplayResumeRef.current) clearTimeout(autoplayResumeRef.current);
-    autoplayResumeRef.current = setTimeout(() => {
-      autoplayPausedRef.current = false;
-    }, AUTOPLAY_PAUSE_MS);
+  const clearAutoplayTimer = useCallback(() => {
+    if (autoplayTimerRef.current) {
+      clearTimeout(autoplayTimerRef.current);
+      autoplayTimerRef.current = null;
+    }
   }, []);
 
   const goNext = useCallback(() => {
@@ -64,20 +73,45 @@ export function useMobilePhotoCarousel(
     });
   }, [canLoop, imageCount]);
 
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const scheduleAutoplay = useCallback(() => {
+    clearAutoplayTimer();
 
-    if (mq.matches || reduced.matches) return;
+    if (!isAutoplayEnabled() || imageCount <= 1 || autoplayPausedRef.current) {
+      return;
+    }
 
-    const timer = window.setInterval(() => {
-      if (!autoplayPausedRef.current) {
-        goNext();
-      }
+    autoplayTimerRef.current = setTimeout(() => {
+      if (autoplayPausedRef.current) return;
+      goNext();
+      scheduleAutoplay();
     }, autoplayMs);
+  }, [autoplayMs, clearAutoplayTimer, goNext, imageCount]);
 
-    return () => window.clearInterval(timer);
-  }, [autoplayMs, goNext]);
+  const pauseAutoplay = useCallback(() => {
+    autoplayPausedRef.current = true;
+    clearAutoplayTimer();
+
+    if (autoplayResumeRef.current) {
+      clearTimeout(autoplayResumeRef.current);
+    }
+
+    autoplayResumeRef.current = setTimeout(() => {
+      autoplayPausedRef.current = false;
+      autoplayResumeRef.current = null;
+      scheduleAutoplay();
+    }, autoplayPauseMs);
+  }, [autoplayPauseMs, clearAutoplayTimer, scheduleAutoplay]);
+
+  useEffect(() => {
+    scheduleAutoplay();
+
+    return () => {
+      clearAutoplayTimer();
+      if (autoplayResumeRef.current) {
+        clearTimeout(autoplayResumeRef.current);
+      }
+    };
+  }, [clearAutoplayTimer, scheduleAutoplay]);
 
   useEffect(() => {
     const el = viewportRef.current;
@@ -90,7 +124,6 @@ export function useMobilePhotoCarousel(
     let currentOffset = 0;
 
     const onTouchStart = (e: TouchEvent) => {
-      pauseAutoplay();
       const touch = e.touches[0];
       startX = touch.clientX;
       startY = touch.clientY;
@@ -120,9 +153,12 @@ export function useMobilePhotoCarousel(
 
     const finishSwipe = () => {
       if (!tracking) return;
+      const wasHorizontal = isHorizontal;
       tracking = false;
 
-      if (isHorizontal) {
+      if (wasHorizontal) {
+        pauseAutoplay();
+
         const threshold = Math.min(el.clientWidth * SWIPE_RATIO, SWIPE_MIN_PX);
 
         if (currentOffset < -threshold) {
@@ -149,12 +185,6 @@ export function useMobilePhotoCarousel(
       el.removeEventListener("touchcancel", finishSwipe);
     };
   }, [goNext, goPrev, pauseAutoplay]);
-
-  useEffect(() => {
-    return () => {
-      if (autoplayResumeRef.current) clearTimeout(autoplayResumeRef.current);
-    };
-  }, []);
 
   useEffect(() => {
     if (!canLoop || transitionEnabled) return;

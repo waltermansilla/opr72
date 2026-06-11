@@ -30,6 +30,15 @@
     --white: #ffffff;
     --whatsapp: #25d366;
     --whatsapp-hover: #20bd5a;
+    /* h-14 + borde inferior del header */
+    --opr-header-h: calc(3.5rem + 1px);
+}
+
+@media (min-width: 1024px) {
+    .opr72-theme {
+        /* h-16 + borde inferior del header */
+        --opr-header-h: calc(4rem + 1px);
+    }
 }
 
 .opr72-theme h1,
@@ -224,6 +233,50 @@
     .opr-split-sticky-visual {
         aspect-ratio: auto;
     }
+
+    /* Quiénes somos — fixed recortado al contenedor de imagen (clip-path, sin JS) */
+    .opr-about-body {
+        position: relative;
+        align-items: stretch;
+        padding-bottom: 0;
+        isolation: isolate;
+    }
+
+    .opr-about-body-visual-spacer {
+        align-self: stretch;
+        min-height: 1px;
+    }
+
+    .opr-about-body-visual {
+        position: absolute;
+        top: 0;
+        right: calc(-1 * max(0px, (100vw - 80rem) / 2 + 2rem));
+        bottom: 0;
+        z-index: 0;
+        width: calc(min(46vw, 560px) + max(0px, (100vw - 80rem) / 2 + 2rem));
+        clip-path: inset(0);
+    }
+
+    .opr-about-body-visual-panel {
+        position: fixed;
+        top: var(--opr-header-h);
+        right: 0;
+        width: calc(min(46vw, 560px) + max(0px, (100vw - 80rem) / 2 + 2rem));
+        height: calc(100dvh - var(--opr-header-h));
+        overflow: hidden;
+    }
+
+    .opr-about-side-image {
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        width: auto !important;
+        height: 100% !important;
+        min-width: 100% !important;
+        max-width: none !important;
+        transform: translate(-50%, -50%) rotate(90deg);
+        object-fit: cover;
+    }
 }
 
 /* Gradient bands */
@@ -246,25 +299,6 @@
 
 #opr72-stats-content {
     transform: translateZ(0);
-}
-
-html[data-opr-pin-active] .opr-gradient-band {
-    transform: translateZ(0);
-}
-
-html[data-opr-pin-active] .opr-marquee-track {
-    animation-play-state: paused;
-}
-
-html[data-opr-pin-active] #opr72-stats-content {
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-}
-
-.opr-pin-white-overlay {
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    will-change: transform, opacity;
 }
 
 .opr-gradient-patriotic {
@@ -799,6 +833,59 @@ html[data-opr-pin-active] #opr72-stats-content {
     }
 }
 
+/* Port showcase — presentaciones de puertos */
+@keyframes opr-port-poster-zoom {
+    from {
+        transform: scale(1.12);
+    }
+    to {
+        transform: scale(1.02);
+    }
+}
+
+.opr-port-poster-zoom {
+    animation: opr-port-poster-zoom 2s ease-out forwards;
+}
+
+@keyframes opr-port-copy-in {
+    from {
+        opacity: 0;
+        transform: translateY(0.85rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.opr-port-copy-line {
+    animation: opr-port-copy-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.opr-port-copy-line:nth-child(1) {
+    animation-delay: 0.04s;
+}
+
+.opr-port-copy-line:nth-child(2) {
+    animation-delay: 0.12s;
+}
+
+.opr-port-copy-line:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.opr-port-copy-line:nth-child(4) {
+    animation-delay: 0.28s;
+}
+
+.opr-port-nav-item.is-active {
+    box-shadow: inset 3px 0 0 0 var(--opr-sky);
+}
+
+.opr-port-nav-grid-item {
+    min-height: 2.5rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
     .opr-gallery-slide,
     .opr-gallery-caption,
@@ -843,6 +930,13 @@ html[data-opr-pin-active] #opr72-stats-content {
 
     .opr-modal-backdrop,
     .opr-modal-panel.is-open {
+        opacity: 1;
+        transform: none;
+    }
+
+    .opr-port-copy-line,
+    .opr-port-poster-zoom {
+        animation: none;
         opacity: 1;
         transform: none;
     }

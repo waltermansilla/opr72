@@ -13,6 +13,10 @@ function MarqueeRow({ ariaHidden = false }: { ariaHidden?: boolean }) {
           "logoMarqueeClass" in client && client.logoMarqueeClass
             ? client.logoMarqueeClass
             : "";
+        const sizeClass =
+          "logoMarqueeSizeClass" in client && client.logoMarqueeSizeClass
+            ? client.logoMarqueeSizeClass
+            : "w-28 sm:w-36";
 
         return (
           <a
@@ -22,7 +26,7 @@ function MarqueeRow({ ariaHidden = false }: { ariaHidden?: boolean }) {
             rel="noopener noreferrer"
             title={client.name}
             tabIndex={ariaHidden ? -1 : undefined}
-            className="group flex h-12 w-28 shrink-0 items-center justify-center transition-transform duration-300 ease-out hover:scale-110 sm:h-14 sm:w-36"
+            className={`group flex h-12 shrink-0 items-center justify-center transition-transform duration-300 ease-out hover:scale-110 sm:h-14 ${sizeClass}`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

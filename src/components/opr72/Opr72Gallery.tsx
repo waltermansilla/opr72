@@ -42,14 +42,26 @@ function GalleryArrow({
   );
 }
 
-export default function Opr72Gallery() {
+type Opr72GalleryProps = {
+  embedded?: boolean;
+};
+
+export default function Opr72Gallery({ embedded = false }: Opr72GalleryProps) {
   const [active, setActive] = useState(0);
   const thumbRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const thumbsContainerRef = useRef<HTMLDivElement>(null);
   const mobileViewportRef = useRef<HTMLDivElement>(null);
   const autoplayPausedRef = useRef(false);
+  const autoplayTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const autoplayResumeRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [dragOffset, setDragOffset] = useState(0);
+
+  const clearAutoplayTimer = useCallback(() => {
+    if (autoplayTimerRef.current) {
+      clearTimeout(autoplayTimerRef.current);
+      autoplayTimerRef.current = null;
+    }
+  }, []);
 
   const goTo = useCallback((index: number) => {
     const total = images.length;
@@ -63,13 +75,32 @@ export default function Opr72Gallery() {
   const goPrev = useCallback(() => goTo(active - 1), [active, goTo]);
   const goNext = useCallback(() => goTo(active + 1), [active, goTo]);
 
+  const scheduleAutoplay = useCallback(() => {
+    clearAutoplayTimer();
+
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mq.matches || reduced.matches || images.length <= 1) return;
+    if (autoplayPausedRef.current) return;
+
+    autoplayTimerRef.current = setTimeout(() => {
+      if (autoplayPausedRef.current) return;
+      advanceAutoplay();
+      scheduleAutoplay();
+    }, AUTOPLAY_MS);
+  }, [advanceAutoplay, clearAutoplayTimer]);
+
   const pauseAutoplay = useCallback(() => {
     autoplayPausedRef.current = true;
+    clearAutoplayTimer();
+
     if (autoplayResumeRef.current) clearTimeout(autoplayResumeRef.current);
     autoplayResumeRef.current = setTimeout(() => {
       autoplayPausedRef.current = false;
+      autoplayResumeRef.current = null;
+      scheduleAutoplay();
     }, AUTOPLAY_PAUSE_MS);
-  }, []);
+  }, [clearAutoplayTimer, scheduleAutoplay]);
 
   const handleGoPrev = useCallback(() => {
     pauseAutoplay();
@@ -113,25 +144,13 @@ export default function Opr72Gallery() {
   }, [active]);
 
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    scheduleAutoplay();
 
-    if (mq.matches || reduced.matches) return;
-
-    const timer = window.setInterval(() => {
-      if (!autoplayPausedRef.current) {
-        advanceAutoplay();
-      }
-    }, AUTOPLAY_MS);
-
-    return () => window.clearInterval(timer);
-  }, [advanceAutoplay]);
-
-  useEffect(() => {
     return () => {
+      clearAutoplayTimer();
       if (autoplayResumeRef.current) clearTimeout(autoplayResumeRef.current);
     };
-  }, []);
+  }, [clearAutoplayTimer, scheduleAutoplay]);
 
   useEffect(() => {
     const el = mobileViewportRef.current;
@@ -144,7 +163,6 @@ export default function Opr72Gallery() {
     let currentOffset = 0;
 
     const onTouchStart = (e: TouchEvent) => {
-      pauseAutoplay();
       const touch = e.touches[0];
       startX = touch.clientX;
       startY = touch.clientY;
@@ -174,9 +192,12 @@ export default function Opr72Gallery() {
 
     const finishSwipe = () => {
       if (!tracking) return;
+      const wasHorizontal = isHorizontal;
       tracking = false;
 
-      if (isHorizontal) {
+      if (wasHorizontal) {
+        pauseAutoplay();
+
         const threshold = Math.min(el.clientWidth * SWIPE_RATIO, SWIPE_MIN_PX);
 
         if (currentOffset < -threshold) {
@@ -202,30 +223,59 @@ export default function Opr72Gallery() {
       el.removeEventListener("touchend", finishSwipe);
       el.removeEventListener("touchcancel", finishSwipe);
     };
-  }, [pauseAutoplay]);
+  }, [pauseAutoplay, images.length]);
 
   const mobileTrackTransform =
     dragOffset === 0
       ? `translateX(calc(-${active} * (100% + 0.5rem)))`
       : `translateX(calc(-${active} * (100% + 0.5rem) + ${dragOffset}px))`;
 
-  return (
-    <section id={gallery.id} className="bg-[var(--opr-sand)] py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Reveal className="mb-12 text-center">
-          <p className="text-sm font-bold tracking-[0.2em] text-[var(--opr-sky)] uppercase">
-            {gallery.label}
+  const header = embedded ? (
+    <Reveal className="mb-12 max-w-2xl">
+      <p className="text-sm font-bold tracking-[0.2em] text-[var(--opr-sky)] uppercase">
+        {gallery.label}
+      </p>
+      <h3 className="mt-3 font-[family-name:var(--font-opr-display)] text-2xl font-bold text-[var(--opr-navy)] sm:text-3xl">
+        {gallery.title}
+      </h3>
+      {gallery.subtitle ? (
+        <p className="mt-3 text-base leading-relaxed text-[var(--opr-navy)]/70">
+          {gallery.subtitle}
+        </p>
+      ) : null}
+    </Reveal>
+  ) : (
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Reveal className="mb-12 text-center">
+        <p className="text-sm font-bold tracking-[0.2em] text-[var(--opr-sky)] uppercase">
+          {gallery.label}
+        </p>
+        <h2 className="mt-3 font-[family-name:var(--font-opr-display)] text-3xl font-bold text-[var(--opr-navy)] sm:text-4xl">
+          {gallery.title}
+        </h2>
+        {gallery.subtitle ? (
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-[var(--opr-navy)]/70">
+            {gallery.subtitle}
           </p>
-          <h2 className="mt-3 font-[family-name:var(--font-opr-display)] text-3xl font-bold text-[var(--opr-navy)] sm:text-4xl">
-            {gallery.title}
-          </h2>
-          <div className="mx-auto mt-5 h-1 w-16 rounded-full bg-[var(--opr-sky)]" />
-        </Reveal>
-      </div>
+        ) : null}
+        <div className="mx-auto mt-5 h-1 w-16 rounded-full bg-[var(--opr-sky)]" />
+      </Reveal>
+    </div>
+  );
+
+  const wrapperClass = embedded
+    ? "opr-gallery opr-gallery-embedded"
+    : "bg-[var(--opr-sand)] py-20 sm:py-28";
+
+  const desktopPadding = embedded ? "px-0" : "px-4 sm:px-6 lg:px-8";
+
+  const content = (
+    <>
+      {header}
 
       {/* Mobile — ancho completo, autoplay, controles abajo */}
       <Reveal delay={80} className="mt-0 lg:hidden">
-        <div className="opr-gallery-mobile">
+        <div className="opr-gallery-mobile opr-mobile-gallery-bleed">
           <div
             ref={mobileViewportRef}
             className="opr-gallery-mobile-viewport overflow-hidden"
@@ -279,7 +329,7 @@ export default function Opr72Gallery() {
       </Reveal>
 
       {/* Desktop — diseño original */}
-      <div className="mx-auto hidden max-w-7xl px-4 sm:px-6 lg:block lg:px-8">
+      <div className={`mx-auto hidden max-w-7xl lg:block ${desktopPadding}`}>
         <Reveal delay={80}>
           <div className="relative">
             <div className="opr-gallery-stage relative overflow-hidden rounded-2xl bg-[var(--opr-navy)] sm:rounded-3xl">
@@ -357,6 +407,20 @@ export default function Opr72Gallery() {
           </div>
         </Reveal>
       </div>
+    </>
+  );
+
+  if (embedded) {
+    return (
+      <div id={gallery.id} className={wrapperClass}>
+        {content}
+      </div>
+    );
+  }
+
+  return (
+    <section id={gallery.id} className={wrapperClass}>
+      {content}
     </section>
   );
 }

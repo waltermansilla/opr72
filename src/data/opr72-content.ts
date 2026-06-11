@@ -4,7 +4,8 @@
  */
 const IMG = "/images-oficial";
 const DEPT = "/images/departamentos";
-const VID = "/videos-oficial";
+const VID = "/videos-oficial/terminales-videos";
+const PREVIEW = `${VID}/previews-videos`;
 
 export const opr72Content = {
   brand: {
@@ -32,13 +33,73 @@ export const opr72Content = {
     image: `${IMG}/hero.jpeg`,
     imageAlt: "Buque atracado en terminal portuaria — OPR72",
   },
-  presentation: {
-    title: "Conocé nuestros sectores",
+  portShowcase: {
+    label: "Puertos e instalaciones",
+    title: "El ecosistema portuario donde desarrollamos nuestro trabajo",
     subtitle:
-      "Video de presentación con operaciones reales en puertos, protección y servicios marítimos.",
-    video: `${VID}/presentacion.mp4`,
-    poster: `${IMG}/hero.jpeg`,
+      "Presentaciones oficiales de terminales y puertos del sector. Material de cada instalación para conocer su escala y operación.",
     cta: "Ver presentación",
+    ctaSoon: "Video en preparación",
+    externalLinkLabel: "Sitio oficial",
+    videoNote: "Video oficial",
+    items: [
+      {
+        id: "rio-turbio",
+        label: "Río Turbio",
+        shortLabel: "Río Turbio",
+        location: "Santa Cruz",
+        client: "Yacimientos Carboníferos Río Turbio",
+        clientUrl: "https://www.ycrt.gob.ar/",
+        summary:
+          "Video institucional de la terminal carbonífera del sur argentino.",
+        orientation: "portrait",
+        video: `${VID}/rio-turbio.mp4`,
+        poster: `${PREVIEW}/rio-turbio.jpg`,
+      },
+      {
+        id: "puerto-buenos-aires",
+        label: "Puerto Buenos Aires",
+        shortLabel: "Puerto Bs. As.",
+        location: "Ciudad Autónoma de Buenos Aires",
+        client: "Puerto de Buenos Aires",
+        clientUrl: "https://www.puertobuenosaires.gob.ar/",
+        summary:
+          "Presentación del principal puerto del país y su operación diaria.",
+        orientation: "landscape",
+        video: `${VID}/puerto-buenos-aires.mp4`,
+        poster: `${PREVIEW}/puerto-bsas.jpg`,
+      },
+      {
+        id: "pesca-calamar",
+        label: "Pesca sustentable calamar",
+        shortLabel: "Pesca calamar",
+        location: "Mar Argentino",
+        client: "INIDEP",
+        clientUrl: "https://www.inidep.edu.ar/",
+        summary:
+          "Documental del INIDEP sobre la pesca sustentable del calamar en aguas argentinas.",
+        orientation: "landscape",
+        video: `${VID}/pesca-calamar.mp4`,
+        poster: `${PREVIEW}/calamar.jpg`,
+      },
+      {
+        id: "apm-terminal-4",
+        label: "APM Terminals",
+        shortLabel: "APM Terminals",
+        location: "Ciudad Autónoma de Buenos Aires",
+        client: "APM Terminals",
+        clientUrl: "https://www.apmterminals.com",
+        summary:
+          "Terminal portuaria en Buenos Aires, orientada al mercado de contenedores y a una operación eficiente de cargas ferroviarias.",
+        orientation: "landscape",
+        video: `${VID}/video-apm.mp4`,
+        poster: `${PREVIEW}/apm.jpg`,
+        presentation: {
+          href: "/videos-oficial/presentacion-apm.pdf",
+          label: "Ver doc. de presentación",
+        },
+      },
+    ],
   },
   mobileGalleries: {
     afterAbout: {
@@ -76,14 +137,16 @@ export const opr72Content = {
     id: "galeria",
     label: "En el campo",
     title: "Operaciones portuarias",
+    subtitle:
+      "Registro fotográfico de operaciones en la terminal de Río Turbio, Santa Cruz.",
     images: [
       {
         src: `${IMG}/opr.jpeg`,
-        alt: "OPR72 al servicio de puertos y buques",
+        alt: "OPR72 en operaciones en Río Turbio",
       },
       {
         src: `${IMG}/galeria-1.jpeg`,
-        alt: "Seguridad en acopios y turnos nocturnos",
+        alt: "Seguridad en acopios y turnos nocturnos, Río Turbio",
       },
       {
         src: `${IMG}/galeria-2.jpeg`,
@@ -164,6 +227,11 @@ export const opr72Content = {
       "Cumpliendo también con las exigencias para el dictado de los cursos establecidos por la Prefectura Naval Argentina al personal de tierra vinculado al transporte marítimo, fluvial y lacustre de mercancías peligrosas acorde los lineamientos establecidos en la Ordenanza Nº 05/11 (DPAM).",
     ],
     imageMain: `${IMG}/about-1.jpeg`,
+    imageMainAlt:
+      "Personal de OPR72 en operaciones de protección portuaria en terminal",
+    imageSide: `${IMG}/quienes-somos.jpg`,
+    imageSideAlt:
+      "Operaciones portuarias y protección marítima — OPR72 en terminal",
     imageSecondary: `${IMG}/about-2.jpeg`,
   },
   opr: {
@@ -382,6 +450,8 @@ export const opr72Content = {
     id: "clientes",
     label: "Trayectoria",
     title: "Nuestros principales clientes",
+    subtitle:
+      "Terminales, consorcios portuarios y empresas del sector con las que OPR72 comparte ámbito de trabajo.",
     list: [
       {
         name: "Terminales Río de la Plata",
@@ -445,6 +515,22 @@ export const opr72Content = {
         location: "Puerto Corrientes",
         logo: "/images/clientes/client-10.gif",
         url: "https://agenciaatalaya.com/",
+      },
+      {
+        name: "Puerto de Corrientes",
+        location: "Corrientes Capital",
+        logo: "/images/clientes/client-11.png",
+        url: "https://puertos.corrientes.gob.ar/",
+        logoMarqueeSizeClass: "w-40 sm:w-48",
+        logoCardClass: "max-h-16 sm:max-h-[4.25rem]",
+      },
+      {
+        name: "Puerto Las Palmas",
+        location: "Chaco",
+        logo: "/images/clientes/client-12.png",
+        logoCard: "/images/clientes/client-12-card.png",
+        url: "https://puertolaspalmas.chaco.gov.ar/",
+        logoMarqueeClass: "brightness-0 invert",
       },
     ],
   },

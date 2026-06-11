@@ -1,23 +1,18 @@
 import Image from "next/image";
 import { opr72Content } from "@/data/opr72-content";
-import Opr72VideoPlayer from "./Opr72VideoPlayer";
 import Reveal from "./Reveal";
 
-const { about, presentation, brand } = opr72Content;
+const { about, brand } = opr72Content;
 
 export default function Opr72About() {
   return (
     <section
       id={about.id}
-      className="relative z-10 bg-[var(--opr-sand)] pt-[var(--opr-about-pin-pt,5rem)] pb-0 sm:pb-0 lg:pb-32"
+      className="relative bg-[var(--opr-sand)] pt-16 pb-10 sm:pb-14 lg:pt-20 lg:pb-0"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div
-          id="opr72-about-logo"
-          className="mb-[var(--opr-about-logo-mb,3.5rem)] flex justify-center"
-        >
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-10 flex justify-center lg:mb-12">
           <Image
-            id="opr72-about-logo-img"
             src={brand.logoStacked}
             alt={`${brand.name} — ${brand.tagline}`}
             width={280}
@@ -26,31 +21,38 @@ export default function Opr72About() {
             priority
           />
         </div>
+      </div>
 
-        <Reveal className="mb-4 max-w-3xl lg:mb-0">
-          <p className="text-sm font-bold tracking-[0.2em] text-[var(--opr-sky)] uppercase">
-            {about.label}
-          </p>
-        </Reveal>
+      <div
+        id="opr72-about-body"
+        className="opr-about-body relative mx-auto max-w-7xl px-4 sm:px-6 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(300px,46vw)] lg:gap-x-14 lg:px-8 xl:gap-x-20"
+      >
+        <div className="relative z-10 min-w-0 lg:max-w-[42rem] lg:pb-20 xl:pb-24">
+          <Reveal className="mb-4">
+            <p className="text-sm font-bold tracking-[0.2em] text-[var(--opr-sky)] uppercase">
+              {about.label}
+            </p>
+          </Reveal>
 
-        <div className="mt-2 grid gap-x-10 gap-y-8 lg:mt-3 lg:grid-cols-[1fr_minmax(250px,300px)] lg:items-start lg:gap-x-16 lg:gap-y-5">
-          <Reveal className="max-w-3xl lg:col-start-1 lg:row-start-1">
+          <Reveal>
             <h2 className="font-[family-name:var(--font-opr-display)] text-3xl font-bold text-[var(--opr-navy)] sm:text-4xl lg:text-[2.75rem]">
               {about.title}
             </h2>
           </Reveal>
 
-          <Reveal
-            variant="right"
-            className="lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:justify-self-end"
-          >
-            <Opr72VideoPlayer />
-            <p className="mt-4 text-center text-sm text-[var(--opr-navy)]/65 lg:text-right">
-              {presentation.subtitle}
-            </p>
+          <Reveal className="mt-6 lg:hidden">
+            <div className="opr-mobile-gallery-bleed relative aspect-[4/3] overflow-hidden">
+              <Image
+                src={about.imageSide}
+                alt={about.imageSideAlt}
+                fill
+                className="object-cover"
+                sizes="100vw"
+              />
+            </div>
           </Reveal>
 
-          <div className="mt-2 space-y-6 lg:col-start-1 lg:mt-0 lg:row-start-2">
+          <div className="mt-8 space-y-6">
             {about.paragraphs.map((p, i) => (
               <Reveal key={i} delay={i * 100}>
                 <p className="text-base leading-relaxed text-[var(--opr-navy)]/85 sm:text-lg">
@@ -60,6 +62,27 @@ export default function Opr72About() {
             ))}
           </div>
         </div>
+
+        <div
+          className="opr-about-body-visual-spacer hidden lg:block"
+          aria-hidden
+        />
+
+        <aside
+          className="opr-about-body-visual pointer-events-none hidden lg:block"
+          aria-hidden
+        >
+          <div className="opr-about-body-visual-panel">
+            <Image
+              src={about.imageSide}
+              alt={about.imageSideAlt}
+              fill
+              className="opr-about-side-image"
+              sizes="46vw"
+              priority
+            />
+          </div>
+        </aside>
       </div>
     </section>
   );

@@ -13,8 +13,8 @@ export default function Opr72Footer() {
             <div className="opr-gradient-patriotic absolute top-0 right-0 left-0 h-1 opacity-80" />
 
             <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-                <div className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-12 lg:gap-10">
-                    <div className="lg:col-span-4">
+                <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 lg:gap-x-10">
+                    <div>
                         <p className="text-xs font-bold tracking-[0.2em] text-[var(--opr-gold)] uppercase">
                             Secciones
                         </p>
@@ -34,7 +34,7 @@ export default function Opr72Footer() {
                         </nav>
                     </div>
 
-                    <div className="lg:col-span-5 lg:col-start-8">
+                    <div>
                         <p className="text-xs font-bold tracking-[0.2em] text-[var(--opr-gold)] uppercase">
                             Contacto
                         </p>

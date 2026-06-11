@@ -290,6 +290,16 @@
         "nombre": "Atalaya Servicios Fluviales",
         "ubicacion": "Puerto Corrientes",
         "imagen": "/images/stock/client-10.jpg"
+      },
+      {
+        "nombre": "Puerto de Corrientes",
+        "ubicacion": "Corrientes Capital",
+        "imagen": "/images/clientes/client-11.png"
+      },
+      {
+        "nombre": "Puerto Las Palmas",
+        "ubicacion": "Chaco",
+        "imagen": "/images/clientes/client-12.png"
       }
     ]
   },
