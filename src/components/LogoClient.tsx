@@ -18,8 +18,7 @@ export default function LogoClient({
   showText,
   className = "",
 }: LogoClientProps) {
-  const showLabel =
-    showText ?? logoContent.mostrarTextoJuntoAlLogo ?? !logoContent.ruta;
+  const showLabel = showText ?? !logoContent.ruta;
 
   return (
     <span

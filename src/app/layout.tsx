@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import ScrollToTop from "@/components/ScrollToTop";
+import siteData from "@/data/opr72.json";
 import { SCROLL_RESET_SCRIPT } from "@/lib/scroll-to-section";
-import { getRequestSiteContent } from "@/lib/site-request";
 import "./globals.css";
 import "@/styles/opr72.css";
 
@@ -36,18 +36,18 @@ function getSiteUrl() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-    const { site, logoContent } = await getRequestSiteContent();
-    const ogImage = site.openGraph?.imagen ?? "/og-image.jpg";
-    const ogWidth = site.openGraph?.imagenAncho ?? 1200;
-    const ogHeight = site.openGraph?.imagenAlto ?? 630;
+    const { sitio, openGraph, logo } = siteData;
+    const ogImage = openGraph?.imagen ?? "/og-image.jpg";
+    const ogWidth = openGraph?.imagenAncho ?? 1200;
+    const ogHeight = openGraph?.imagenAlto ?? 630;
     const shareDescription =
-        site.openGraph?.descripcion ?? site.sitio.descripcion;
+        openGraph?.descripcion ?? sitio.descripcion;
 
     return {
         metadataBase: new URL(getSiteUrl()),
-        title: site.sitio.tituloPagina,
-        description: site.sitio.descripcion,
-        keywords: site.sitio.palabrasClave,
+        title: sitio.tituloPagina,
+        description: sitio.descripcion,
+        keywords: sitio.palabrasClave,
         icons: {
             icon: [
                 { url: "/favicon.png", type: "image/png", sizes: "256x256" },
@@ -58,10 +58,10 @@ export async function generateMetadata(): Promise<Metadata> {
             ],
         },
         openGraph: {
-            title: site.sitio.tituloPagina,
+            title: sitio.tituloPagina,
             description: shareDescription,
             url: getSiteUrl(),
-            siteName: site.sitio.nombre,
+            siteName: sitio.nombre,
             locale: "es_AR",
             type: "website",
             images: [
@@ -69,29 +69,29 @@ export async function generateMetadata(): Promise<Metadata> {
                     url: ogImage,
                     width: ogWidth,
                     height: ogHeight,
-                    alt: logoContent.textoAlternativo,
+                    alt: logo.textoAlternativo,
                 },
             ],
         },
         twitter: {
             card: "summary_large_image",
-            title: site.sitio.tituloPagina,
+            title: sitio.tituloPagina,
             description: shareDescription,
             images: [ogImage],
         },
     };
 }
 
-export default async function RootLayout({
+export default function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const { site } = await getRequestSiteContent();
+    const { sitio } = siteData;
 
     return (
         <html
-            lang={site.sitio.idioma}
+            lang={sitio.idioma}
             className={`${inter.variable} ${plusJakarta.variable}`}
             suppressHydrationWarning
         >

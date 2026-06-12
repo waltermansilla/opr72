@@ -3,31 +3,31 @@ import type { SiteData } from "./site";
 /** Rutas de imágenes derivadas del JSON del sitio activo. */
 export function buildStockImages(site: SiteData) {
   return {
-    hero: site.hero.imagen,
+    hero: site.hero.image,
     about: {
-      main: site.quienesSomos.imagenPrincipal,
-      secondary: site.quienesSomos.imagenSecundaria,
+      main: site.about.imageSide,
+      secondary: site.about.imageSide,
     },
-    vision: site.vision.imagen,
+    vision: site.opr.image,
     servicesBg: "/images/stock/services-bg.jpg",
     contact: {
-      banner: "/images/stock/contact-banner.jpg",
-      office: "/images/stock/contact-office.jpg",
+      banner: site.hero.image,
+      office: site.hero.image,
     },
     clients: {
-      header: site.clientes.imagenCabecera,
-      cards: site.clientes.lista.map((c) => c.imagen),
+      header: site.hero.image,
+      cards: site.clients.list.map((c) => c.logo),
     },
     services: Object.fromEntries(
-      site.servicios.departamentos.map((d) => [d.id, d.imagen]),
+      site.services.departments.map((d) => [d.id, d.image]),
     ) as Record<string, string>,
     links: Object.fromEntries(
-      site.enlacesInteres.lista.map((l) => [
-        l.titulo
+      site.institutional.links.map((l) => [
+        l.title
           .toLowerCase()
           .replace(/[^a-z0-9]+/g, "-")
           .replace(/^-|-$/g, ""),
-        l.imagen,
+        l.image,
       ]),
     ),
   } as const;

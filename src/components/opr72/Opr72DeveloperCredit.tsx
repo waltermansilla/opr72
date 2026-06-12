@@ -13,7 +13,7 @@ export default function Opr72DeveloperCredit({ variant }: Opr72DeveloperCreditPr
     <p
       className={
         isMenu
-          ? "opr-dev-credit-menu text-center text-xs text-white/40"
+          ? "opr-dev-credit-menu text-center text-xs"
           : "text-center text-xs text-white/40"
       }
     >
@@ -22,7 +22,11 @@ export default function Opr72DeveloperCredit({ variant }: Opr72DeveloperCreditPr
         href={developer.instagram}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-white/55 transition hover:text-white/80"
+        className={
+          isMenu
+            ? "transition hover:text-[var(--opr-navy)]"
+            : "text-white/55 transition hover:text-white/80"
+        }
       >
         {developer.name}
       </a>

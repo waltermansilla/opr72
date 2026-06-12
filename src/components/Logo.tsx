@@ -13,8 +13,7 @@ export default async function Logo({
   className = "",
 }: LogoProps) {
   const { site, logoContent } = await getRequestSiteContent();
-  const showLabel =
-    showText ?? logoContent.mostrarTextoJuntoAlLogo ?? !logoContent.ruta;
+  const showLabel = showText ?? !logoContent.ruta;
 
   return (
     <span

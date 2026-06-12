@@ -192,7 +192,9 @@ export default function Opr72PortShowcase() {
                     video={active.video}
                     cta={portShowcase.cta}
                     ctaSoon={portShowcase.ctaSoon}
-                    orientation={active.orientation}
+                    orientation={
+                      active.orientation as "portrait" | "landscape"
+                    }
                     className="w-full max-w-[26rem]"
                   />
                 </div>

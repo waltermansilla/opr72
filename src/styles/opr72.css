@@ -32,6 +32,11 @@
     --whatsapp-hover: #20bd5a;
     /* h-14 + borde inferior del header */
     --opr-header-h: calc(3.5rem + 1px);
+    --opr-navbar-glass-bg: rgb(238 246 251 / 0.7);
+    --opr-navbar-menu-bg: rgb(238 246 251 / 0.9);
+    --opr-navbar-glass-border: rgb(7 20 40 / 0.08);
+    --opr-navbar-glass-shadow: 0 8px 24px -12px rgb(61 143 189 / 0.1);
+    --opr-navbar-glass-blur: blur(12px) saturate(1.15);
 }
 
 @media (min-width: 1024px) {
@@ -242,9 +247,12 @@
         isolation: isolate;
     }
 
-    .opr-about-body-visual-spacer {
-        align-self: stretch;
-        min-height: 1px;
+    .opr-about-body-copy {
+        padding-right: 2rem;
+    }
+
+    .opr-about-body-visual-col {
+        min-width: 0;
     }
 
     .opr-about-body-visual {
@@ -312,6 +320,104 @@
         #74acdf 100%
     );
     height: 3px;
+}
+
+/* Audience / alcance chips */
+.opr-audience-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 3.75rem;
+    gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+    .opr-audience-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1024px) {
+    .opr-audience-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.875rem;
+    }
+}
+
+.opr-audience-item {
+    display: flex;
+    min-width: 0;
+    height: 100%;
+}
+
+.opr-audience-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    height: 100%;
+    padding: 0.625rem 0.875rem;
+    border-radius: 1rem;
+    border: 1px solid rgb(255 255 255 / 0.14);
+    background: linear-gradient(
+        135deg,
+        rgb(255 255 255 / 0.1) 0%,
+        rgb(255 255 255 / 0.04) 100%
+    );
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
+    backdrop-filter: blur(10px);
+    transition:
+        transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+}
+
+.opr-audience-chip:hover {
+    transform: translateY(-3px);
+    border-color: rgb(212 168 75 / 0.45);
+    background: linear-gradient(
+        135deg,
+        rgb(255 255 255 / 0.14) 0%,
+        rgb(255 255 255 / 0.06) 100%
+    );
+    box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 0.1),
+        0 12px 28px rgb(7 20 40 / 0.22);
+}
+
+.opr-audience-chip-mark {
+    flex-shrink: 0;
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 9999px;
+    background: var(--opr-gold);
+    box-shadow: 0 0 0 3px rgb(212 168 75 / 0.2);
+}
+
+.opr-audience-chip-label {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: rgb(255 255 255 / 0.92);
+    text-align: left;
+}
+
+@media (min-width: 640px) {
+    .opr-audience-chip-label {
+        font-size: 0.875rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .opr-audience-chip {
+        transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .opr-audience-chip:hover {
+        transform: none;
+    }
 }
 
 /* Gallery carousel */
@@ -456,24 +562,28 @@
     opacity: 1;
 }
 
-/* Mobile menu (Apple-style) */
+/* Mobile menu */
 .opr-mobile-menu {
     visibility: hidden;
     pointer-events: none;
-    background: var(--opr-navy);
+    background: var(--opr-navbar-menu-bg);
+    -webkit-backdrop-filter: var(--opr-navbar-glass-blur);
+    backdrop-filter: var(--opr-navbar-glass-blur);
+    opacity: 0;
+    transition: opacity 0.28s ease;
 }
 
 .opr-mobile-menu.is-open {
     visibility: visible;
     pointer-events: auto;
-    background: var(--opr-navy);
+    opacity: 1;
 }
 
 .opr-mobile-menu-backdrop {
     position: absolute;
     inset: 0;
     border: 0;
-    background: var(--opr-navy);
+    background: transparent;
     opacity: 1;
 }
 
@@ -485,17 +595,13 @@
     min-height: 100dvh;
     flex-direction: column;
     justify-content: space-between;
-    background: var(--opr-navy);
+    background: transparent;
     padding: 5.75rem 1.75rem max(1.75rem, env(safe-area-inset-bottom));
-    opacity: 0;
     transform: scale(1.03);
-    transition:
-        opacity 0.42s cubic-bezier(0.32, 0.72, 0, 1),
-        transform 0.52s cubic-bezier(0.32, 0.72, 0, 1);
+    transition: transform 0.52s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 .opr-mobile-menu.is-open .opr-mobile-menu-panel {
-    opacity: 1;
     transform: scale(1);
 }
 
@@ -514,7 +620,7 @@
     font-size: clamp(1.5rem, 5.5vw, 1.85rem);
     font-weight: 600;
     line-height: 1.25;
-    color: rgb(255 255 255 / 0.9);
+    color: rgb(7 20 40 / 0.72);
     opacity: 0;
     transform: translateY(1.1rem);
     transition:
@@ -555,7 +661,7 @@
 
 .opr-mobile-menu-link:hover,
 .opr-mobile-menu-link:active {
-    color: #fff;
+    color: var(--opr-navy);
 }
 
 .opr-menu-toggle {
@@ -748,6 +854,54 @@
     }
 }
 
+/* Header — vidrio foam suave al scroll */
+.opr-navbar-logo {
+    height: 100%;
+    line-height: 0;
+}
+
+.opr-navbar-logo img {
+    display: block;
+    transform: translateY(-0.2rem);
+}
+
+.opr-navbar {
+    transition:
+        border-color 0.35s ease,
+        box-shadow 0.35s ease,
+        background-color 0.2s ease,
+        -webkit-backdrop-filter 0.35s ease,
+        backdrop-filter 0.35s ease;
+}
+
+.opr-navbar-glass {
+    border-bottom: 1px solid var(--opr-navbar-glass-border);
+    background: var(--opr-navbar-glass-bg);
+    box-shadow: var(--opr-navbar-glass-shadow);
+    -webkit-backdrop-filter: var(--opr-navbar-glass-blur);
+    backdrop-filter: var(--opr-navbar-glass-blur);
+}
+
+/* Bloqueo de scroll con menú móvil abierto (sin position:fixed → sin salto al cerrar) */
+html.opr-menu-scroll-lock {
+    overflow: hidden;
+    overscroll-behavior: none;
+}
+
+body.opr-menu-scroll-lock {
+    overflow: hidden;
+    overscroll-behavior: none;
+    touch-action: none;
+}
+
+/* Menú abierto en mobile: header por encima del overlay (logo + equis visibles) */
+@media (max-width: 1023px) {
+    #opr72-navbar.opr-header-menu-open {
+        z-index: 10002;
+        overflow: visible;
+    }
+}
+
 /* Header desktop — indicador de sección activa */
 .opr-nav-indicator {
     position: absolute;
@@ -763,10 +917,6 @@
         opacity 0.28s ease,
         background 0.35s ease;
     pointer-events: none;
-}
-
-#opr72-navbar[data-opr-solid="true"] .opr-nav-indicator {
-    background: rgb(255 255 255 / 0.14);
 }
 
 /* Dept cards — hover: zoom imagen + sombra (sin mover la card) */
@@ -818,6 +968,15 @@
     .opr-dev-credit-menu {
         margin-top: auto;
         padding-top: 1.5rem;
+        color: rgb(7 20 40 / 0.42);
+    }
+
+    .opr-dev-credit-menu a {
+        color: rgb(7 20 40 / 0.58);
+    }
+
+    .opr-dev-credit-menu a:hover {
+        color: var(--opr-navy);
     }
 
     .opr-reveal {
@@ -903,6 +1062,7 @@
         transform: none;
     }
 
+    .opr-mobile-menu,
     .opr-mobile-menu-backdrop,
     .opr-mobile-menu-panel,
     .opr-mobile-menu-link,
