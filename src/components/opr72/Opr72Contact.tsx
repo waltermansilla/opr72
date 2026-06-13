@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { opr72Content } from "@/data/opr72-content";
+import Opr72RepDocuments from "./Opr72RepDocuments";
 import Reveal from "./Reveal";
 
 const { contact, representative } = opr72Content;
@@ -101,27 +102,34 @@ export default function Opr72Contact() {
             </div>
 
             <Reveal delay={80} className="mt-10">
-              <div className="flex gap-4 overflow-hidden rounded-2xl border border-[var(--opr-navy)]/10 bg-[var(--opr-sand)] p-4 sm:gap-5 sm:p-5">
-                <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl sm:h-28 sm:w-28">
-                  <Image
-                    src={representative.image}
-                    alt={representative.imageAlt}
-                    fill
-                    className="object-cover object-[center_35%]"
-                    sizes="112px"
-                  />
+              <div className="opr-rep-card">
+                <div className="opr-rep-header">
+                  <div className="opr-rep-photo">
+                    <Image
+                      src={representative.image}
+                      alt={representative.imageAlt}
+                      fill
+                      className="object-cover object-[center_35%]"
+                      sizes="(max-width: 640px) 96px, 112px"
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold tracking-[0.2em] text-[var(--opr-sky)] uppercase">
+                      {representative.label}
+                    </p>
+                    <h3 className="mt-1 font-[family-name:var(--font-opr-display)] text-xl font-bold text-[var(--opr-navy)] sm:text-2xl">
+                      {representative.name}
+                    </h3>
+                  </div>
                 </div>
-                <div className="min-w-0">
-                  <p className="text-xs font-bold tracking-[0.2em] text-[var(--opr-sky)] uppercase">
-                    {representative.label}
-                  </p>
-                  <h3 className="mt-1 font-[family-name:var(--font-opr-display)] text-xl font-bold text-[var(--opr-navy)] sm:text-2xl">
-                    {representative.name}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[var(--opr-navy)]/75">
-                    {representative.text}
-                  </p>
+
+                <div className="opr-rep-body">
+                  {representative.text.map((paragraph, index) => (
+                    <p key={index}>{paragraph}</p>
+                  ))}
                 </div>
+
+                <Opr72RepDocuments />
               </div>
             </Reveal>
           </Reveal>

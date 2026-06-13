@@ -562,8 +562,27 @@
     "representative": {
         "label": "Nuestro representante",
         "name": "Hector Burges",
-        "image": "/hector.jpg",
+        "image": "/hector-burges/hector.jpg",
         "imageAlt": "Hector Burges en presentación institucional sobre protección portuaria",
-        "text": "Trayectoria consolidada en protección portuaria, seguridad marítima y asesoramiento ante la Autoridad Marítima Argentina."
+        "text": [
+            "Soy especialista en seguridad marítima y portuaria con más de 30 años de trayectoria en la Prefectura Naval Argentina y en la actividad privada.",
+            "Soy Licenciado en Seguridad Marítima, Analista en Seguridad Marítima, Administrador del Transporte Marítimo Internacional y poseo un Máster en Gestión Moderna de Puertos de Naciones Unidas (UNCTAD).",
+            "Actualmente soy titular de la Organización de Protección Reconocida N.º 72 y me desempeño como Oficial de Protección de Instalaciones Portuarias y consultor de importantes terminales y puertos del país.",
+            "Además, desarrollo actividades docentes en el ámbito universitario y de formación profesional, capacitando a personal vinculado a la protección marítima y portuaria."
+        ],
+        "documents": {
+            "certificate": {
+                "label": "Certificado oficial OPR",
+                "scan": "/hector-burges/certificado-opr-escaneado.pdf",
+                "photo": "/hector-burges/certificado-opr-hector-burges.png",
+                "scanLabel": "Escaneado",
+                "photoLabel": "Ver foto original",
+                "photoShortLabel": "Foto original"
+            },
+            "cv": {
+                "label": "Curriculum Vitae",
+                "file": "/hector-burges/cv-completo.pdf"
+            }
+        }
     }
 }
